@@ -39,9 +39,11 @@ public class WebViewActivity extends Activity {
 
         setContentView(R.layout.activity_web_view);
 
+        String backendEndpoint = getResources().getString(R.string.backend_endpoint);
+
         ButterKnife.bind(this);
         Bundle b = getIntent().getExtras();
-        String url = "http://hidden-city.herokuapp.com" + b.getString("id");
+        String url = backendEndpoint + b.getString("id");
 
         Log.i("url", url);
         mWebView.loadUrl(url);

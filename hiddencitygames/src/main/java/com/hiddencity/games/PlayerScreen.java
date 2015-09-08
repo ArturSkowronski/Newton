@@ -32,11 +32,7 @@ import retrofit.client.Response;
 
 
 public class PlayerScreen extends ActionBarActivity {
-
-    JoinTeam joinTeamRestEndpoint = new RestAdapter.Builder()
-            .setEndpoint("http://hidden-city.herokuapp.com")
-            .build()
-            .create(JoinTeam.class);
+    JoinTeam joinTeamRestEndpoint;
 
     @OnClick(R.id.joinGame)
     public void joinGameSubmit(View view) {
@@ -49,6 +45,11 @@ public class PlayerScreen extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String backendEndpoint = getResources().getString(R.string.backend_endpoint);
+        joinTeamRestEndpoint = new RestAdapter.Builder()
+                .setEndpoint(backendEndpoint)
+                .build()
+                .create(JoinTeam.class);
         setContentView(R.layout.activity_player_screen);
         ButterKnife.bind(this);
     }

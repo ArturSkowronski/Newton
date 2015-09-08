@@ -55,7 +55,7 @@ public class WebViewButtonedActivity extends Activity {
 
         ButterKnife.bind(this);
         Bundle b = getIntent().getExtras();
-        String url = "http://hidden-city.herokuapp.com" + b.getString("id");
+        String url = getString(R.string.backend_endpoint) + b.getString("id");
         nextAction = b.getString("action");
 
         Log.i("url", url);

@@ -7,4 +7,5 @@
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="title_activity_game_master_screen">GameMasterScreen</string>
     <string name="title_activity_player_screen">PlayerScreen</string>
+    <string name="backend_endpoint">http://hiddencityapp.herokuapp.com</string>
 </resources>

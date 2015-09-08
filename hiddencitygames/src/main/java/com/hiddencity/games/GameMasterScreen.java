@@ -28,10 +28,7 @@ import retrofit.client.Response;
 
 
 public class GameMasterScreen extends ActionBarActivity {
-
-    RegisterTeam registerTeamRestService = new RestAdapter.Builder()
-            .setEndpoint("http://hidden-city.herokuapp.com")
-            .build().create(RegisterTeam.class);
+    RegisterTeam registerTeamRestService;
 
     @Bind(R.id.gameCode)
     TextView gameCode;
@@ -45,6 +42,11 @@ public class GameMasterScreen extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String backendEndpoint = getResources().getString(R.string.backend_endpoint);
+        registerTeamRestService = new RestAdapter.Builder()
+                .setEndpoint(backendEndpoint)
+                .build().create(RegisterTeam.class);
+
         setContentView(R.layout.activity_game_master_screen);
         ButterKnife.bind(this);
         final HiddenSharedPreferences hiddenSharedPreferences = new HiddenSharedPreferences(this);

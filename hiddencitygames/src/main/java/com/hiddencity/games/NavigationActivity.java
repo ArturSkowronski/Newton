@@ -42,10 +42,7 @@ public class NavigationActivity extends ActionBarActivity {
 
     HiddenGoogleMap hiddenGoogleMap;
 
-    Places places = new RestAdapter.Builder()
-            .setEndpoint("http://hidden-city.herokuapp.com")
-            .build()
-            .create(Places.class);
+    Places places;
 
     public static final void goThere(Context context){
         Intent intent = new Intent(context, NavigationActivity.class);
@@ -55,6 +52,13 @@ public class NavigationActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        String backendEndpoint = getResources().getString(R.string.backend_endpoint);
+        places = new RestAdapter.Builder()
+                .setEndpoint(backendEndpoint)
+                .build()
+                .create(Places.class);
+
         setContentView(R.layout.activity_navigation);
         TranslucantStatusBar();
         GoogleMap();
