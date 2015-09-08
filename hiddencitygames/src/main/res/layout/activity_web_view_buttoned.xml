@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="#0099cc"
+    xmlns:awesome="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.hiddencityapp.android.WebViewActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+    <WebView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/content">
+    </WebView>
+
+    <cyd.awesome.material.AwesomeButton
+        android:id="@+id/nextAction"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Dalej"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+
+        awesome:awesome_type="bootstrap_primary"
+        awesome:awesome_rounded_corners="true"
+
+        awesome:awesome_icon_right="FA_HOME"
+        awesome:awesome_font="font_awesome"
+
+        />
+</LinearLayout>

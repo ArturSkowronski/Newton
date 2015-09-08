@@ -1,1 +1,1 @@
-include ':app', ':newton'
+include ':app', ':newton', ':hiddencitygames'

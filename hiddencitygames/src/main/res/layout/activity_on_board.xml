@@ -1,0 +1,53 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:awesome="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.hiddencity.games.OnBoardActivity">
+
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/conrad" />
+
+    <cyd.awesome.material.AwesomeButton
+        android:id="@+id/registerTeam"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Zarejestruj drużynę"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+
+        awesome:awesome_type="bootstrap_primary"
+        awesome:awesome_rounded_corners="true"
+
+        awesome:awesome_icon_right="FA_HOME"
+        awesome:awesome_font="font_awesome"
+
+        />
+
+    <cyd.awesome.material.AwesomeButton
+        android:id="@+id/joinTeam"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Dołącz do drużyny"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+
+        awesome:awesome_type="bootstrap_primary"
+        awesome:awesome_rounded_corners="true"
+
+        awesome:awesome_icon_right="FA_HOME"
+        awesome:awesome_font="font_awesome"
+
+        />
+</LinearLayout>

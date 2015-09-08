@@ -1,0 +1,65 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:awesome="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.hiddencity.games.PlayerScreen">
+
+    <TextView
+        android:layout_marginTop="50dp"
+
+        android:text="Twój kod gry to"
+        android:id="@+id/gameCode"
+        android:layout_width="fill_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content" />
+
+
+    <TextView android:text="9483"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:layout_width="fill_parent"
+
+        android:layout_height="wrap_content" />
+
+
+    <TextView android:text="Przekaż go pozostałym graczom"
+        android:layout_width="fill_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content" />
+
+    <TextView android:text="poczekaj aż wszyscy gracze dołączą do gry"
+        android:layout_width="fill_parent"
+        android:gravity="center"
+        android:layout_marginTop="50dp"
+        android:layout_height="wrap_content" />
+
+    <cyd.awesome.material.AwesomeButton
+        android:id="@+id/joinGame"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Dołącz do gry"
+        android:padding="10dp"
+        android:layout_marginTop="50dp"
+
+
+        awesome:awesome_type="bootstrap_primary"
+        awesome:awesome_rounded_corners="true"
+
+        awesome:awesome_icon_right="FA_HOME"
+        awesome:awesome_font="font_awesome"
+
+        />
+
+
+
+
+
+</LinearLayout>
