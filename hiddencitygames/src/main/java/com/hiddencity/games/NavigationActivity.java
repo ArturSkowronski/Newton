@@ -54,6 +54,7 @@ public class NavigationActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         String backendEndpoint = getResources().getString(R.string.backend_endpoint);
+
         places = new RestAdapter.Builder()
                 .setEndpoint(backendEndpoint)
                 .build()

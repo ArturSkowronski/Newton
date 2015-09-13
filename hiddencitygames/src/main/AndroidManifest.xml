@@ -88,6 +88,9 @@
             android:name=".PlayerScreen"
             android:label="@string/title_activity_player_screen" >
         </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="e0f45593b26dd8c5c92ad92e771079d97fa41270" />
     </application>
 
 </manifest>

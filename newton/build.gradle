@@ -1,4 +1,9 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.hiddencity.newton'
+version = '1.0.1'
 
 android {
     compileSdkVersion 22
@@ -8,7 +13,7 @@ android {
         minSdkVersion 18
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0"
+        versionName "1.1"
     }
     buildTypes {
         release {
@@ -16,8 +21,59 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    
+
+    lintOptions {
+        abortOnError false
+    }
+
+
 }
+
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+
+artifacts {
+    archives generateSourcesJar
+}
+
+bintray {
+    user = 'arturskowronski'
+    key = 'a73b15a2e74d25f06868e70db2a1f73b5298bd04b51309f9ffc556c71b77d29e'
+    pkg {
+        repo = 'maven'
+        name = 'com.hiddencity.newton'
+
+        version {
+            name = '1.0.1'
+            desc = 'My test upload'
+            released  = new Date()
+            vcsTag = '1.0.1'
+        }
+
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/ArturSkowronski/Newton'
+        websiteUrl = 'https://github.com/ArturSkowronski/Newton'
+    }
+    publish = true
+    configurations = ['archives']
+}
+
+
+task generateJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath()
+            .join(File.pathSeparator))
+}
+
+task generateJavadocsJar(type: Jar) {
+    from generateJavadocs.destinationDir
+    classifier 'javadoc'
+}
+
+generateJavadocsJar.dependsOn generateJavadocs
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])

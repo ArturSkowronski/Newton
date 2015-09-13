@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -43,6 +44,7 @@ import com.hiddencity.games.gcm.Preferences;
 import com.hiddencity.games.gcm.RegistrationIntentService;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import io.fabric.sdk.android.Fabric;
 import java.io.IOException;
 
 import butterknife.Bind;
@@ -59,6 +61,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
         mRegistrationBroadcastReceiver = initializeBroadcastReceiver();

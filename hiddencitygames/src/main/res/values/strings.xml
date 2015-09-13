@@ -1,11 +1,10 @@
 <resources>
     <string name="app_name">HiddenCityGames</string>
-
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_on_board">OnBoardActivity</string>
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="title_activity_game_master_screen">GameMasterScreen</string>
     <string name="title_activity_player_screen">PlayerScreen</string>
-    <string name="backend_endpoint">http://hiddencityapp.herokuapp.com</string>
+    <string name="backend_endpoint">http://192.168.1.103:5000</string>
 </resources>
