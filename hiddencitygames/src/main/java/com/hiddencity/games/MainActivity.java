@@ -1,59 +1,27 @@
 package com.hiddencity.games;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.LevelListDrawable;
-import android.os.Build;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.google.android.gms.iid.InstanceID;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.hiddencity.games.gcm.Preferences;
 import com.hiddencity.games.gcm.RegistrationIntentService;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.hiddencity.games.screens.NavigationActivity;
+import com.hiddencity.games.screens.OnBoardActivity;
 
 import io.fabric.sdk.android.Fabric;
-import java.io.IOException;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 
 public class MainActivity extends Activity {
 
-    private static final String TAG = "MainActivityToken";
+    private static final String TAG = "MainActivity";
 
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     GoogleServicesAccessor googleServicesAccessor = new GoogleServicesAccessor();
@@ -63,8 +31,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
-
         mRegistrationBroadcastReceiver = initializeBroadcastReceiver();
+
         HiddenSharedPreferences hiddenSharedPreferences = new HiddenSharedPreferences(this);
 
         if (googleServicesAccessor.checkPlayServices(this)) {
@@ -72,7 +40,7 @@ public class MainActivity extends Activity {
             startService(intent);
         }
 
-        if(!hiddenSharedPreferences.getPlayerId().equals("")){
+        if (hiddenSharedPreferences.isPlayerLogged()) {
             Intent intent = new Intent(this, NavigationActivity.class);
             this.startActivity(intent);
         } else {

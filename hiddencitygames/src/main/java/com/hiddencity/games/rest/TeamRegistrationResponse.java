@@ -4,6 +4,7 @@ package com.hiddencity.games.rest;
  * Created by arturskowronski on 06/09/15.
  */
 public class TeamRegistrationResponse {
+
     public String getId() {
         return id;
     }
@@ -14,21 +15,21 @@ public class TeamRegistrationResponse {
 
     String id;
 
-    public String getRegistration_code() {
+    public String getRegistrationCode() {
         return registration_code;
     }
 
-    public void setRegistration_code(String registration_code) {
+    public void setRegistrationCode(String registration_code) {
         this.registration_code = registration_code;
     }
 
     String registration_code;
 
-    public String getPlayer_id() {
+    public String getPlayerId() {
         return player_id;
     }
 
-    public void setPlayer_id(String player_id) {
+    public void setPlayerId(String player_id) {
         this.player_id = player_id;
     }
 

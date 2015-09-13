@@ -14,7 +14,6 @@ public class HiddenSharedPreferences {
     public static final String TAG = "HiddenCityGames";
     Context context;
     SharedPreferences sharedPreferences;
-    private String GCMToken;
 
     public HiddenSharedPreferences(Context context) {
         this.context = context;
@@ -27,18 +26,20 @@ public class HiddenSharedPreferences {
 
 
     public String getPlayerId(){
-        String string = sharedPreferences.getString(Preferences.GCM_TOKEN, "");
-        return string;
+        return sharedPreferences.getString(Preferences.GCM_TOKEN, "");
     }
 
 
     public String getGCMToken() {
-        String string = sharedPreferences.getString(Preferences.GCM_TOKEN, "");
-        return string;
+        return sharedPreferences.getString(Preferences.GCM_TOKEN, "");
+    }
+
+
+    public boolean isPlayerLogged() {
+        return !"".equals(getPlayerId());
     }
 
     public void setGCMToken(String GCMToken) {
         sharedPreferences.edit().putString(Preferences.GCM_TOKEN, GCMToken).apply();
-
     }
 }

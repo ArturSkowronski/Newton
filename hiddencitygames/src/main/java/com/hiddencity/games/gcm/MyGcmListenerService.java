@@ -15,8 +15,8 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
 import com.hiddencity.games.MainActivity;
-import com.hiddencity.games.NavigationActivity;
-import com.hiddencity.games.WebViewActivity;
+import com.hiddencity.games.screens.NavigationActivity;
+import com.hiddencity.games.screens.WebViewActivity;
 
 public class MyGcmListenerService extends GcmListenerService {
 

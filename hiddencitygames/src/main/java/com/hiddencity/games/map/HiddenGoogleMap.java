@@ -1,4 +1,4 @@
-package com.hiddencity.games;
+package com.hiddencity.games.map;
 
 import android.content.Context;
 import android.graphics.Bitmap;

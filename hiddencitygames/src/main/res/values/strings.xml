@@ -7,4 +7,5 @@
     <string name="title_activity_game_master_screen">GameMasterScreen</string>
     <string name="title_activity_player_screen">PlayerScreen</string>
     <string name="backend_endpoint">http://192.168.1.103:5000</string>
+    <string name="cannot_acquire_game_code">Nie udało się pobrać kodu gry</string>
 </resources>

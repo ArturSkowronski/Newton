@@ -1,7 +1,6 @@
-package com.hiddencity.games;
+package com.hiddencity.games.map;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +9,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
+import com.hiddencity.games.R;
 
 /**
  * Created by arturskowronski on 06/09/15.

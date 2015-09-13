@@ -10,6 +10,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <permission android:name="com.hiddencity.games.permission.C2D_MESSAGE" />
 
     <uses-feature
@@ -64,33 +67,37 @@
             android:value="AIzaSyALgE0rBWVcy8sMQ39PM4CtcuOBMPssQvs" />
 
         <activity
-            android:name=".OnBoardActivity"
+            android:name=".screens.OnBoardActivity"
             android:label="@string/title_activity_on_board" >
 
         </activity>
         <activity
-            android:name=".NavigationActivity"
+            android:name=".screens.NavigationActivity"
             android:label="@string/title_activity_navigation" >
         </activity>
         <activity
-            android:name=".WebViewActivity"
+            android:name=".screens.WebViewActivity"
             android:label="@string/title_activity_navigation" >
         </activity>
         <activity
-            android:name=".WebViewButtonedActivity"
+            android:name=".screens.WebViewButtonedActivity"
             android:label="@string/title_activity_navigation" >
         </activity>
         <activity
-            android:name=".GameMasterScreen"
+            android:name=".screens.GameMasterScreen"
             android:label="@string/title_activity_game_master_screen" >
         </activity>
         <activity
-            android:name=".PlayerScreen"
+            android:name=".screens.PlayerScreen"
             android:label="@string/title_activity_player_screen" >
         </activity>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="e0f45593b26dd8c5c92ad92e771079d97fa41270" />
+        <meta-data
+            android:name="kontakt.io.API_KEY"
+            android:value="ExamplehgAEjC1Krg5X5tiI9AExample" />
+
     </application>
 
 </manifest>

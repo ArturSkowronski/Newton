@@ -1,4 +1,4 @@
-package com.hiddencity.games;
+package com.hiddencity.games.screens;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+
+import com.hiddencity.games.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

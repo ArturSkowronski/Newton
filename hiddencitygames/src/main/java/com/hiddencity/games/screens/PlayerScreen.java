@@ -1,38 +1,28 @@
-package com.hiddencity.games;
+package com.hiddencity.games.screens;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.hiddencity.games.gcm.Preferences;
+import com.hiddencity.games.HiddenSharedPreferences;
+import com.hiddencity.games.R;
 import com.hiddencity.games.rest.JoinTeam;
-import com.hiddencity.games.rest.Onboarding;
-import com.hiddencity.games.rest.RegisterTeam;
 import com.hiddencity.games.rest.TeamJoinRequest;
 import com.hiddencity.games.rest.TeamJoinResponse;
-import com.hiddencity.games.rest.TeamRegistrationRequest;
-import com.hiddencity.games.rest.TeamRegistrationResponse;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cyd.awesome.material.AwesomeButton;
 import retrofit.Callback;
 import retrofit.RestAdapter;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import retrofit.android.AndroidLog;
 
-
-public class PlayerScreen extends ActionBarActivity {
+public class PlayerScreen extends AppCompatActivity {
     JoinTeam joinTeamRestEndpoint;
+    private String TAG = "PlayerScreen";
 
     @OnClick(R.id.joinGame)
     public void joinGameSubmit(View view) {
@@ -48,6 +38,8 @@ public class PlayerScreen extends ActionBarActivity {
         String backendEndpoint = getResources().getString(R.string.backend_endpoint);
         joinTeamRestEndpoint = new RestAdapter.Builder()
                 .setEndpoint(backendEndpoint)
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .setLog(new AndroidLog(TAG))
                 .build()
                 .create(JoinTeam.class);
         setContentView(R.layout.activity_player_screen);

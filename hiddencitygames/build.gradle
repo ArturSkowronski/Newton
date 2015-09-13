@@ -52,9 +52,10 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-    compile "com.google.android.gms:play-services:7.5.+"
+    compile "com.google.android.gms:play-services:7.5.0"
     compile 'cyd.awesome.android:awesome-material:1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.android.support:design:22.2.0'
     compile project(':newton')
     compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
         transitive = true;

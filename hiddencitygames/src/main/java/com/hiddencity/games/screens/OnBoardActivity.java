@@ -1,17 +1,20 @@
-package com.hiddencity.games;
+package com.hiddencity.games.screens;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.hiddencity.games.R;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class OnBoardActivity extends ActionBarActivity {
+public class OnBoardActivity extends AppCompatActivity {
 
     @OnClick(R.id.joinTeam)
     public void joinTeamSubmit(View view) {

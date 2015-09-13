@@ -1,11 +1,11 @@
-package com.hiddencity.games;
+package com.hiddencity.games.screens;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,7 +14,10 @@ import android.view.WindowManager;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.hiddencity.games.rest.JoinTeam;
+import com.hiddencity.games.map.HiddenGoogleMap;
+import com.hiddencity.games.map.HiddenInfoAdapter;
+import com.hiddencity.games.HiddenSharedPreferences;
+import com.hiddencity.games.R;
 import com.hiddencity.games.rest.Place;
 import com.hiddencity.games.rest.PlaceResponse;
 import com.hiddencity.games.rest.Places;
@@ -44,10 +47,10 @@ public class NavigationActivity extends ActionBarActivity {
 
     Places places;
 
-    public static final void goThere(Context context){
+    public static void goThere(Context context){
         Intent intent = new Intent(context, NavigationActivity.class);
         context.startActivity(intent);
-    };
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
