@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.hiddencity.games.rest.uri.OnboardURL;
 import com.hiddencity.games.screens.NavigationActivity;
 import com.hiddencity.games.screens.WebViewButtonedActivity;
 import com.hiddencity.games.gcm.Preferences;
@@ -29,6 +30,6 @@ public class Onboarding {
     }
 
     public void startOnboarding(String player_id) {
-        WebViewButtonedActivity.goThere(context, "/onboarding?player_id=" + player_id, NavigationActivity.class.getName());
+        WebViewButtonedActivity.goThere(context, new OnboardURL(player_id), NavigationActivity.class.getName());
     }
 }

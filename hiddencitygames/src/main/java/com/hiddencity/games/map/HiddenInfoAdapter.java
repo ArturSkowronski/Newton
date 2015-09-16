@@ -24,21 +24,18 @@ public class HiddenInfoAdapter implements GoogleMap.InfoWindowAdapter {
 
     @Override
     public View getInfoWindow(Marker marker) {
-        LinearLayout view = new LinearLayout(context);
-        view.setBackgroundColor(Color.WHITE);
-        LinearLayout.LayoutParams LLParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        view.setLayoutParams(LLParams);
+       return null;
+    }
+
+    @Override
+    public View getInfoContents(Marker marker) {
+
         View child = context.getLayoutInflater().inflate(R.layout.marker, null);
         TextView title = (TextView) child.findViewById(R.id.label);
         TextView content = (TextView) child.findViewById(R.id.content);
         ImageView icon = (ImageView) child.findViewById(R.id.icon);
         title.setText(marker.getTitle());
         content.setText(marker.getSnippet());
-        return view;
-    }
-
-    @Override
-    public View getInfoContents(Marker marker) {
-        return null;
+        return child;
     }
 }

@@ -1,5 +1,7 @@
 package com.hiddencity.games.rest;
 
+import java.util.List;
+
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Path;
@@ -11,7 +13,7 @@ import retrofit.http.Query;
 public interface Places {
 
     @GET("/places")
-    void places(@Query("player_id") String playerId, Callback<PlacesResponse> callback);
+    void places(@Query("player_id") String playerId, Callback<List<PlaceReq>> callback);
 
     @GET("/place/{beacon}")
     void placeByBeacon(@Path("beacon") String beacon, @Query("player_id") String playerId, Callback<PlaceResponse> callback);

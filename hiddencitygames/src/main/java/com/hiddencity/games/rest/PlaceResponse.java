@@ -4,6 +4,9 @@ package com.hiddencity.games.rest;
  * Created by arturskowronski on 06/09/15.
  */
 public class PlaceResponse {
+
+    String id;
+
     public String getId() {
         return id;
     }
@@ -12,5 +15,4 @@ public class PlaceResponse {
         this.id = id;
     }
 
-    String id;
 }

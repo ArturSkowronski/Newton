@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,10 +19,9 @@ import com.hiddencity.games.map.HiddenGoogleMap;
 import com.hiddencity.games.map.HiddenInfoAdapter;
 import com.hiddencity.games.HiddenSharedPreferences;
 import com.hiddencity.games.R;
-import com.hiddencity.games.rest.Place;
+import com.hiddencity.games.rest.PlaceReq;
 import com.hiddencity.games.rest.PlaceResponse;
 import com.hiddencity.games.rest.Places;
-import com.hiddencity.games.rest.PlacesResponse;
 import com.hiddencity.newton.domain.BeaconEvent;
 import com.hiddencity.newton.eddystone.EddystoneBeaconManager;
 import com.hiddencity.newton.rx.ObservableBeacon;
@@ -33,18 +33,19 @@ import java.util.List;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
+import retrofit.android.AndroidLog;
 import retrofit.client.Response;
 import rx.Observable;
 import rx.functions.Action1;
 
 
-public class NavigationActivity extends ActionBarActivity {
+public class NavigationActivity extends AppCompatActivity {
+
+    private String TAG = "NavigationActivity";
 
     EddystoneBeaconManager eddystoneBeaconManager;
     HiddenSharedPreferences hiddenSharedPreferences;
-
     HiddenGoogleMap hiddenGoogleMap;
-
     Places places;
 
     public static void goThere(Context context){
@@ -55,15 +56,17 @@ public class NavigationActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_navigation);
 
         String backendEndpoint = getResources().getString(R.string.backend_endpoint);
 
         places = new RestAdapter.Builder()
                 .setEndpoint(backendEndpoint)
+                .setLog(new AndroidLog(TAG))
+                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build()
                 .create(Places.class);
 
-        setContentView(R.layout.activity_navigation);
         TranslucantStatusBar();
         GoogleMap();
 
@@ -72,16 +75,19 @@ public class NavigationActivity extends ActionBarActivity {
 
         beaconNavigation();
 
-        places.places(hiddenSharedPreferences.getPlayerId(), new Callback<PlacesResponse>() {
+        String playerId = hiddenSharedPreferences.getPlayerId();
+        playerId = "fQ5ChP3csTU:APA91bErS9e5vpcH22hFhKTQsu-A7Zz9PEgWT_2kQwMjiebZOcTwhHD39THceSjlGowch4BNodmrGSpySpdvl-bfXkLWE5vpZRwarl5NpyCuFYNw0IsduPp3sV8FcqWVpOaslNBU_Hni";
+
+        places.places(playerId, new Callback<List<PlaceReq>>() {
 
             @Override
-            public void success(PlacesResponse placesResponse, Response response) {
-                hiddenGoogleMap.addMarkers(placesResponse.getPlacesList());
+            public void success(List<PlaceReq> places, Response response) {
+                hiddenGoogleMap.addMarkers(places);
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                Log.e(TAG, error.getResponse().getReason());
             }
         });
     }
@@ -89,12 +95,10 @@ public class NavigationActivity extends ActionBarActivity {
     private void beaconNavigation() {
 
         eddystoneBeaconManager.startMonitoring(new ObservableBeacon() {
-
             @Override
             public void onBeaconInitialized(Observable<BeaconEvent> observable) {
                 observable.subscribe(onNext);
             }
-
         });
     }
 
@@ -123,9 +127,6 @@ public class NavigationActivity extends ActionBarActivity {
 
         hiddenGoogleMap = new HiddenGoogleMap(this, map);
         hiddenGoogleMap.setInfoWindowAdapter(new HiddenInfoAdapter(this));
-
-        List<Place> places = new ArrayList<>();
-        hiddenGoogleMap.addMarkers(places);
     }
 
     @Override

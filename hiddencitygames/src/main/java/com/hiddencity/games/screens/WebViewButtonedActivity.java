@@ -12,6 +12,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.hiddencity.games.R;
+import com.hiddencity.games.rest.uri.HiddenURL;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,9 +25,9 @@ public class WebViewButtonedActivity extends Activity {
     @Bind(R.id.content)
     WebView mWebView;
 
-    public static final void goThere(Context context, String url, String clazz){
+    public static  void goThere(Context context, HiddenURL url, String clazz){
         Intent intent = new Intent(context, WebViewButtonedActivity.class);
-        intent.putExtra("url", url);
+        intent.putExtra("url", url.getUrl());
         intent.putExtra("action", clazz);
         context.startActivity(intent);
     };
