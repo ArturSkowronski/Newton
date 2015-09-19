@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by arturskowronski on 14/09/15.
  */
-public class PlaceReq {
+public class BeaconizedMarker {
 
     /**
      * beacon : 1asdas

@@ -30,6 +30,6 @@ public class Onboarding {
     }
 
     public void startOnboarding(String player_id) {
-        WebViewButtonedActivity.goThere(context, new OnboardURL(player_id), NavigationActivity.class.getName());
+        WebViewButtonedActivity.goThere(context, new OnboardURL(player_id), NavigationActivity.class.getCanonicalName());
     }
 }

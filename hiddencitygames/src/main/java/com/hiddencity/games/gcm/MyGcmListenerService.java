@@ -21,7 +21,7 @@ import com.hiddencity.games.screens.WebViewActivity;
 public class MyGcmListenerService extends GcmListenerService {
 
     private static final String TAG = "MyGcmListenerService";
-    private static final String PLACE_RESULT = "PLACE_RESULT";
+    private static final String     PLACE_RESULT = "PLACE_RESULT";
 
     /**
      * Called when message is received.
@@ -38,36 +38,19 @@ public class MyGcmListenerService extends GcmListenerService {
         Log.d(TAG, "From: " + from);
         Log.d(TAG, "Message: " + message);
 
-        if (from.startsWith(PLACE_RESULT)) {
-            if("status".equals("next")) {
+            if(message.equals("next")) {
                 String nextContent = data.getString("nextContent");
                 NavigationActivity.goThere(MyGcmListenerService.this);
             }
-            if("status".equals("done")) {
+            if(message.equals("done")) {
                 String url = data.getString("url");
                 WebViewActivity.goThere(MyGcmListenerService.this, url);
             }
             // message received from some topic.
-        } else {
-            // normal downstream message.
-        }
 
-        // [START_EXCLUDE]
-        /**
-         * Production applications would usually process the message here.
-         * Eg: - Syncing with server.
-         *     - Store message in local database.
-         *     - Update UI.
-         */
 
-        /**
-         * In some cases it may be useful to show a notification indicating to the user
-         * that a message was received.
-         */
         sendNotification(message);
-        // [END_EXCLUDE]
     }
-    // [END receive_message]
 
     /**
      * Create and show a simple notification containing the received GCM message.
@@ -82,11 +65,11 @@ public class MyGcmListenerService extends GcmListenerService {
 
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setContentTitle("GCM Message")
-                .setContentText(message)
-                .setAutoCancel(true)
-                .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent);
+            .setContentTitle("GCM Message")
+            .setContentText(message)
+            .setAutoCancel(true)
+            .setSound(defaultSoundUri)
+            .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

@@ -1,7 +1,6 @@
 package com.hiddencity.games.map;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.widget.ImageView;
 
@@ -12,11 +11,9 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hiddencity.games.R;
-import com.hiddencity.games.rest.Place;
-import com.hiddencity.games.rest.PlaceReq;
+import com.hiddencity.games.rest.BeaconizedMarker;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -38,7 +35,12 @@ public class HiddenGoogleMap {
         this.hiddenMarkersModel = new HiddenMarkersModel();
     }
 
-    public void addMarkers(List<PlaceReq> placeList){
+    public String contentIdByBeaconId(String beaconId){
+        return hiddenMarkersModel.contentIdByBeaconId(beaconId);
+    }
+
+
+    public void addMarkers(List<BeaconizedMarker> placeList){
         hiddenMarkersModel.margeMarkers(placeList);
         drawMarkers();
     }
@@ -47,7 +49,7 @@ public class HiddenGoogleMap {
         googleMap.clear();
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
-        for (PlaceReq place : hiddenMarkersModel.getMarkers()) {
+        for (BeaconizedMarker place : hiddenMarkersModel.getMarkers()) {
 
             if(place.isActive()) {
 

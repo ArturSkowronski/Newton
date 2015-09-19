@@ -26,7 +26,7 @@ public class HiddenSharedPreferences {
 
 
     public String getPlayerId(){
-        return sharedPreferences.getString(Preferences.GCM_TOKEN, "");
+        return sharedPreferences.getString(Preferences.PLAYER_ID, "");
     }
 
 

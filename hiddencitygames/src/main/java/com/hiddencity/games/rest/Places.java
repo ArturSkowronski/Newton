@@ -13,7 +13,7 @@ import retrofit.http.Query;
 public interface Places {
 
     @GET("/places")
-    void places(@Query("player_id") String playerId, Callback<List<PlaceReq>> callback);
+    void places(Callback<List<BeaconizedMarker>> callback);
 
     @GET("/place/{beacon}")
     void placeByBeacon(@Path("beacon") String beacon, @Query("player_id") String playerId, Callback<PlaceResponse> callback);

@@ -2,7 +2,7 @@ package com.hiddencity.games.map;
 
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.hiddencity.games.rest.PlaceReq;
+import com.hiddencity.games.rest.BeaconizedMarker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,19 @@ import java.util.List;
  * Created by arturskowronski on 14/09/15.
  */
 public class HiddenMarkersModel {
-    List<PlaceReq> markersModel = new ArrayList<>();
+    List<BeaconizedMarker> markersModel = new ArrayList<>();
 
-    public List<PlaceReq> getMarkers() {
+    public List<BeaconizedMarker> getMarkers() {
         return markersModel;
+    }
+
+    public String contentIdByBeaconId(String beaconId){
+        for (BeaconizedMarker beaconizedMarker : markersModel) {
+            if(beaconizedMarker.getBeacon().equals(beaconId)){
+                return beaconizedMarker.getContent();
+            }
+        }
+        return null;
     }
 
     public BitmapDescriptor activeBeacon(){
@@ -35,39 +44,39 @@ public class HiddenMarkersModel {
         return markersModel.size();
     }
 
-    public void margeMarkers(List<PlaceReq> placeList) {
-        for (PlaceReq placeReq : placeList) {
-            mergeOrUpdateMarker(placeReq);
+    public void margeMarkers(List<BeaconizedMarker> placeList) {
+        for (BeaconizedMarker beaconizedMarker : placeList) {
+            mergeOrUpdateMarker(beaconizedMarker);
         }
     }
 
-    private void mergeOrUpdateMarker(PlaceReq placeReq) {
-        if(contains(placeReq)){
-            PlaceReq current = find(placeReq);
-            if(placeReq.isActive()) {
+    private void mergeOrUpdateMarker(BeaconizedMarker beaconizedMarker) {
+        if(contains(beaconizedMarker)){
+            BeaconizedMarker current = find(beaconizedMarker);
+            if(beaconizedMarker.isActive()) {
                 deactivateAll();
                 current.setActive(true);
             }
         } else {
-            markersModel.add(placeReq);
+            markersModel.add(beaconizedMarker);
         }
 
     }
 
     private void deactivateAll() {
-        for (PlaceReq req : markersModel) {
+        for (BeaconizedMarker req : markersModel) {
             req.setActive(false);
             req.setShowed(true);
         }
     }
 
-    private boolean contains(PlaceReq placeReq) {
-        return find(placeReq)!=null;
+    private boolean contains(BeaconizedMarker beaconizedMarker) {
+        return find(beaconizedMarker)!=null;
     }
 
-    private PlaceReq find(PlaceReq placeReq){
-        for (PlaceReq req : markersModel) {
-            if(placeReq.get_id().equals(req.get_id())) return req;
+    private BeaconizedMarker find(BeaconizedMarker beaconizedMarker){
+        for (BeaconizedMarker req : markersModel) {
+            if(beaconizedMarker.get_id().equals(req.get_id())) return req;
         }
         return null;
     }

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -19,15 +18,15 @@ import com.hiddencity.games.map.HiddenGoogleMap;
 import com.hiddencity.games.map.HiddenInfoAdapter;
 import com.hiddencity.games.HiddenSharedPreferences;
 import com.hiddencity.games.R;
-import com.hiddencity.games.rest.PlaceReq;
-import com.hiddencity.games.rest.PlaceResponse;
+import com.hiddencity.games.rest.BeaconizedMarker;
 import com.hiddencity.games.rest.Places;
+import com.hiddencity.games.rest.uri.ContentURL;
 import com.hiddencity.newton.domain.BeaconEvent;
+import com.hiddencity.newton.domain.ContentID;
 import com.hiddencity.newton.eddystone.EddystoneBeaconManager;
 import com.hiddencity.newton.rx.ObservableBeacon;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -75,14 +74,15 @@ public class NavigationActivity extends AppCompatActivity {
 
         beaconNavigation();
 
-        String playerId = hiddenSharedPreferences.getPlayerId();
-        playerId = "fQ5ChP3csTU:APA91bErS9e5vpcH22hFhKTQsu-A7Zz9PEgWT_2kQwMjiebZOcTwhHD39THceSjlGowch4BNodmrGSpySpdvl-bfXkLWE5vpZRwarl5NpyCuFYNw0IsduPp3sV8FcqWVpOaslNBU_Hni";
-
-        places.places(playerId, new Callback<List<PlaceReq>>() {
+        places.places(new Callback<List<BeaconizedMarker>>() {
 
             @Override
-            public void success(List<PlaceReq> places, Response response) {
+            public void success(List<BeaconizedMarker> places, Response response) {
                 hiddenGoogleMap.addMarkers(places);
+                ContentID contentID = new ContentID();
+                contentID.setBeaconName("Beacon");
+                BeaconEvent beaconEvent = new BeaconEvent(contentID);
+                onNext.call(beaconEvent);
             }
 
             @Override
@@ -106,18 +106,13 @@ public class NavigationActivity extends AppCompatActivity {
     Action1<BeaconEvent> onNext = new Action1<BeaconEvent>() {
         @Override
         public void call(final BeaconEvent beaconEvent) {
-            places.placeByBeacon(beaconEvent.getContentID().getBeaconName(),
-                                 hiddenSharedPreferences.getPlayerId(), new Callback<PlaceResponse>() {
-                @Override
-                public void success(PlaceResponse placeResponse, Response response) {
-                    WebViewActivity.goThere(NavigationActivity.this, "/content/" + placeResponse.getId());
-                }
+            String contentId = hiddenGoogleMap.contentIdByBeaconId(beaconEvent.getContentID().getBeaconName());
 
-                @Override
-                public void failure(RetrofitError error) {
-                    Log.e(HiddenSharedPreferences.TAG, "Beacon " + beaconEvent.getContentID().getBeaconName() + " not in backend");
-                }
-            });
+            if(contentId == null){
+                Log.e(HiddenSharedPreferences.TAG, "Beacon " + beaconEvent.getContentID().getBeaconName() + " not in backend");
+            } else {
+                WebViewActivity.goThere(NavigationActivity.this, new ContentURL(contentId).getUrl());
+            }
         }
     };
 

@@ -21,16 +21,19 @@ import butterknife.OnClick;
 public class WebViewButtonedActivity extends Activity {
 
     String nextAction;
+    public static final String ACTION = "action";
+    public static final String URL = "url";
+    public static final String ID = "id";
 
     @Bind(R.id.content)
     WebView mWebView;
 
-    public static  void goThere(Context context, HiddenURL url, String clazz){
+    public static void goThere(Context context, HiddenURL url, String clazz){
         Intent intent = new Intent(context, WebViewButtonedActivity.class);
-        intent.putExtra("url", url.getUrl());
-        intent.putExtra("action", clazz);
+        intent.putExtra(URL, url.getUrl());
+        intent.putExtra(ACTION, clazz);
         context.startActivity(intent);
-    };
+    }
 
     @OnClick(R.id.nextAction)
     public void next(View view){
@@ -58,8 +61,8 @@ public class WebViewButtonedActivity extends Activity {
 
         ButterKnife.bind(this);
         Bundle b = getIntent().getExtras();
-        String url = getString(R.string.backend_endpoint) + b.getString("id");
-        nextAction = b.getString("action");
+        String url = getString(R.string.backend_endpoint) + b.getString(ID);
+        nextAction = b.getString(ACTION);
 
         Log.i("url", url);
         mWebView.loadUrl(url);

@@ -22,7 +22,7 @@ public class WebViewActivity extends Activity {
     WebView mWebView;
 
     public static final void goThere(Context context, String url){
-        Intent intent = new Intent(context, WebViewButtonedActivity.class);
+        Intent intent = new Intent(context, WebViewActivity.class);
         intent.putExtra("url", url);
         context.startActivity(intent);
     };
