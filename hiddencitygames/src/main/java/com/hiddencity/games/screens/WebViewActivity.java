@@ -50,7 +50,8 @@ public class WebViewActivity extends Activity {
         mWebView.loadUrl(url);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-
+        mWebView.setVerticalScrollBarEnabled(false);
+        mWebView.setHorizontalScrollBarEnabled(false);
     }
 
     @Override
@@ -62,4 +63,10 @@ public class WebViewActivity extends Activity {
             }
         }
     }
+
+
+    @Override
+    public void onBackPressed() {
+    }
+
 }

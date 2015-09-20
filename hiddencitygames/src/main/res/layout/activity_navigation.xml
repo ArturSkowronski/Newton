@@ -3,10 +3,6 @@
     android:layout_height="match_parent" tools:context=".MainActivity"
     >
 
-    <TextView android:text="Dupa" android:layout_width="wrap_content"
-        android:id="@+id/title"
-        android:layout_height="wrap_content" />
-
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         android:name="com.google.android.gms.maps.MapFragment"
         android:id="@+id/map"
@@ -22,5 +18,28 @@
         android:minHeight="?attr/actionBarSize"
         android:background="@android:color/transparent">
     </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp">
 
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Sim1"
+        android:id="@+id/simulate_beacon_1"/>
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Sim2"
+        android:id="@+id/simulate_beacon_2"/>
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Sim3"
+        android:id="@+id/simulate_beacon_3"/>
+
+    </LinearLayout>
 </FrameLayout>

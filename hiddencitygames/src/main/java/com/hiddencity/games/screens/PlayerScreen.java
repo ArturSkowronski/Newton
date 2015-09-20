@@ -62,6 +62,7 @@ public class PlayerScreen extends AppCompatActivity {
         teamJoinRequest.setGcm(gcm);
 
         String code = joinGameInput.getText().toString();
+        hiddenSharedPreferences.setCode(code);
         teamJoinRequest.setCode(code);
         return teamJoinRequest;
     }
@@ -83,4 +84,9 @@ public class PlayerScreen extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed() {
+    }
+
 }

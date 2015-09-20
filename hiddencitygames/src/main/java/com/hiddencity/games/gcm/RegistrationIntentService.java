@@ -15,6 +15,7 @@ import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 import com.hiddencity.games.HiddenSharedPreferences;
+import com.hiddencity.games.Preferences;
 import com.hiddencity.games.R;
 
 import java.io.IOException;

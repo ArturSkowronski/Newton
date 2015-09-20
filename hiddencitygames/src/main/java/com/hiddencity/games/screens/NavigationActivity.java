@@ -9,8 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -29,6 +31,9 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -42,6 +47,42 @@ public class NavigationActivity extends AppCompatActivity {
 
     private String TAG = "NavigationActivity";
 
+    @OnClick(R.id.simulate_beacon_1)
+    public void sim1(View v){
+        ContentID contentID = new ContentID();
+        contentID.setBeaconName("Beacon");
+        BeaconEvent beaconEvent = new BeaconEvent(contentID);
+        onNext.call(beaconEvent);
+    }
+
+    @OnClick(R.id.simulate_beacon_2)
+    public void sim2(View v){
+        ContentID contentID = new ContentID();
+        contentID.setBeaconName("Beacon");
+        BeaconEvent beaconEvent = new BeaconEvent(contentID);
+        onNext.call(beaconEvent);
+    }
+
+    @OnClick(R.id.simulate_beacon_3)
+    public void sim3(View v){
+        places.places(new Callback<List<BeaconizedMarker>>() {
+
+            @Override
+            public void success(List<BeaconizedMarker> places, Response response) {
+                hiddenGoogleMap.addMarkers(places);
+                ContentID contentID = new ContentID();
+                contentID.setBeaconName("Beacon");
+                BeaconEvent beaconEvent = new BeaconEvent(contentID);
+                onNext.call(beaconEvent);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(TAG, error.getResponse().getReason());
+            }
+        });
+    }
+
     EddystoneBeaconManager eddystoneBeaconManager;
     HiddenSharedPreferences hiddenSharedPreferences;
     HiddenGoogleMap hiddenGoogleMap;
@@ -52,10 +93,18 @@ public class NavigationActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
+    public static void goThere(Context context, boolean resync){
+        Intent intent = new Intent(context, NavigationActivity.class);
+        intent.putExtra("resync", resync);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+        ButterKnife.bind(this);
+
 
         String backendEndpoint = getResources().getString(R.string.backend_endpoint);
 
@@ -79,10 +128,6 @@ public class NavigationActivity extends AppCompatActivity {
             @Override
             public void success(List<BeaconizedMarker> places, Response response) {
                 hiddenGoogleMap.addMarkers(places);
-                ContentID contentID = new ContentID();
-                contentID.setBeaconName("Beacon");
-                BeaconEvent beaconEvent = new BeaconEvent(contentID);
-                onNext.call(beaconEvent);
             }
 
             @Override
@@ -153,5 +198,10 @@ public class NavigationActivity extends AppCompatActivity {
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setNavigationBarTintEnabled(true);
         tintManager.setTintColor(Color.parseColor("#10000000"));
+    }
+
+
+    @Override
+    public void onBackPressed() {
     }
 }

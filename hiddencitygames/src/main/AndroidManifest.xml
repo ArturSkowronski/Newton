@@ -25,6 +25,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         tools:replace="android:theme"
+        android:name="android.support.multidex.MultiDexApplication"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         <activity
             android:name=".MainActivity"
@@ -46,7 +47,7 @@
         </receiver>
 
         <service
-            android:name=".gcm.MyGcmListenerService"
+            android:name=".gcm.HiddenGcmListenerService"
             android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -66,7 +67,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyALgE0rBWVcy8sMQ39PM4CtcuOBMPssQvs" />
+            android:value="AIzaSyBCQJPUftqQzTsDTbnalnduGGGD7EyhegY" />
 
         <activity
             android:name=".screens.OnBoardActivity"
@@ -83,6 +84,10 @@
         </activity>
         <activity
             android:name=".screens.WebViewButtonedActivity"
+            android:label="@string/title_activity_navigation" >
+        </activity>
+        <activity
+            android:name=".screens.OnboardWebViewActivity"
             android:label="@string/title_activity_navigation" >
         </activity>
         <activity

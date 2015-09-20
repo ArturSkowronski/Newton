@@ -4,16 +4,32 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.hiddencity.games.gcm.Preferences;
-
 /**
  * Created by arturskowronski on 06/09/15.
  */
 public class HiddenSharedPreferences {
 
     public static final String TAG = "HiddenCityGames";
+
     Context context;
     SharedPreferences sharedPreferences;
+
+    public String getCode() {
+        return sharedPreferences.getString(Preferences.GAME_CODE, "");
+    }
+
+    public void setCode(String code) {
+        sharedPreferences.edit().putString(Preferences.GAME_CODE, code).apply();
+    }
+
+    public void setPlacesDownloaded(boolean flag) {
+        sharedPreferences.edit().putBoolean(Preferences.PLACE_DOWNLOADED, flag).apply();
+    }
+
+    public boolean getPlacesDownloaded(boolean flag) {
+        return sharedPreferences.getBoolean(Preferences.PLACE_DOWNLOADED, false);
+    }
+
 
     public HiddenSharedPreferences(Context context) {
         this.context = context;
@@ -23,7 +39,6 @@ public class HiddenSharedPreferences {
     public void setPlayerId(String player_id){
         sharedPreferences.edit().putString(Preferences.PLAYER_ID, player_id).apply();
     }
-
 
     public String getPlayerId(){
         return sharedPreferences.getString(Preferences.PLAYER_ID, "");

@@ -26,6 +26,7 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
 
 
@@ -42,11 +43,13 @@ android {
 
     packagingOptions {
         exclude 'main/AndroidManifest.xml'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
 
 }
 
 dependencies {
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.jakewharton:butterknife:7.0.1'
@@ -60,5 +63,7 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
         transitive = true;
     }
-
+    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.facebook.rebound:rebound:0.3.8'
+    compile 'io.realm:realm-android:0.82.2'
 }

@@ -54,25 +54,38 @@ public class GameMasterScreen extends AppCompatActivity {
         ButterKnife.bind(this);
 
         final HiddenSharedPreferences hiddenSharedPreferences = new HiddenSharedPreferences(this);
+
         String gcmToken = hiddenSharedPreferences.getGCMToken();
 
         final TeamRegistrationRequest teamRegistrationRequest = new TeamRegistrationRequest();
         teamRegistrationRequest.setGcm(gcmToken);
+        if(hiddenSharedPreferences.getCode() == null || hiddenSharedPreferences.getCode().equals("")) {
+            registerTeamRestService.registerTeam(teamRegistrationRequest, new Callback<TeamRegistrationResponse>() {
 
-        registerTeamRestService.registerTeam(teamRegistrationRequest, new Callback<TeamRegistrationResponse>() {
+                @Override
+                public void success(TeamRegistrationResponse teamRegistrationResponse, Response response) {
+                    String registrationCode = teamRegistrationResponse.getRegistrationCode();
 
-            @Override
-            public void success(TeamRegistrationResponse teamRegistrationResponse, Response response) {
-                gameCode.setText(teamRegistrationResponse.getRegistrationCode());
-                hiddenSharedPreferences.setPlayerId(teamRegistrationResponse.getPlayerId());
-            }
+                    hiddenSharedPreferences.setCode(registrationCode);
 
-            @Override
-            public void failure(RetrofitError error) {
-                Toast.makeText(GameMasterScreen.this, getString(R.string.cannot_acquire_game_code), Toast.LENGTH_SHORT).show();
-                GameMasterScreen.this.finish();
-            }
-        });
+                    gameCode.setText(registrationCode);
+                    hiddenSharedPreferences.setPlayerId(teamRegistrationResponse.getPlayerId());
+                }
+
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Toast.makeText(GameMasterScreen.this, getString(R.string.cannot_acquire_game_code), Toast.LENGTH_SHORT).show();
+                    GameMasterScreen.this.finish();
+                }
+            });
+        } else {
+            gameCode.setText(hiddenSharedPreferences.getCode());
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 
     @Override
