@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hiddencity.games.R;
+import com.hiddencity.games.db.table.PlacesEntity;
 import com.hiddencity.games.rest.BeaconizedMarker;
 import com.squareup.picasso.Picasso;
 
@@ -35,26 +36,20 @@ public class HiddenGoogleMap {
         this.hiddenMarkersModel = new HiddenMarkersModel();
     }
 
-    public String contentIdByBeaconId(String beaconId){
-        return hiddenMarkersModel.contentIdByBeaconId(beaconId);
+    public void addMarkers(List<PlacesEntity> placesEntities){
+        drawMarkers(placesEntities);
     }
 
-
-    public void addMarkers(List<BeaconizedMarker> placeList){
-        hiddenMarkersModel.margeMarkers(placeList);
-        drawMarkers();
-    }
-
-    private void drawMarkers() {
+    private void drawMarkers(List<PlacesEntity> placesEntities) {
         googleMap.clear();
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
-        for (BeaconizedMarker place : hiddenMarkersModel.getMarkers()) {
+        for (PlacesEntity place : placesEntities) {
 
             if(place.isActive()) {
 
                 MarkerOptions markerOption = new MarkerOptions()
-                        .position(new LatLng(place.getLocation().getLat(), place.getLocation().getLong()))
+                        .position(new LatLng(place.getLat(), place.getLng()))
                         .title("Następne zadanie")
                         .icon(hiddenMarkersModel.activeBeacon())
                         .snippet("Poznaj przeznaczenie");
@@ -66,10 +61,10 @@ public class HiddenGoogleMap {
             if(place.isShowed()) {
 
                 MarkerOptions markerOption = new MarkerOptions()
-                        .position(new LatLng(place.getLocation().getLat(), place.getLocation().getLong()))
-                        .title(place.getTitle())
+                        .position(new LatLng(place.getLat(), place.getLng()))
+                        .title(place.getBeacon().getTitle())
                         .icon(hiddenMarkersModel.showedBeacon())
-                        .snippet(place.getContent());
+                        .snippet(place.getBeacon().getContent());
 
                 googleMap.addMarker(markerOption);
                 builder.include(markerOption.getPosition());

@@ -1,33 +1,48 @@
 package com.hiddencity.games.db.table;
 
 import io.realm.RealmObject;
-import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by arturskowronski on 20/09/15.
  */
 public class BeaconEntity extends RealmObject {
+
     @PrimaryKey
-    private String          name;
-    private int             age;
+    private String id;
+    private String title;
+    private String content;
+    private String imageUrl;
 
-    @Ignore
-    private int             sessionId;
-
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public int getAge() {
-        return age;
+    public String getContent() {
+        return content;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

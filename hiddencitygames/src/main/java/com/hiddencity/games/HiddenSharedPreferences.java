@@ -26,7 +26,7 @@ public class HiddenSharedPreferences {
         sharedPreferences.edit().putBoolean(Preferences.PLACE_DOWNLOADED, flag).apply();
     }
 
-    public boolean getPlacesDownloaded(boolean flag) {
+    public boolean arePlacesDownloaded() {
         return sharedPreferences.getBoolean(Preferences.PLACE_DOWNLOADED, false);
     }
 

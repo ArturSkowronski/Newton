@@ -19,7 +19,6 @@ public class BeaconizedMarker {
     private LocationEntity location;
     private String _id;
     private String title;
-    private List<TasksEntity> tasks;
     private String content;
     private String image_url;
     private boolean active = false;
@@ -58,10 +57,6 @@ public class BeaconizedMarker {
         this.title = title;
     }
 
-    public void setTasks(List<TasksEntity> tasks) {
-        this.tasks = tasks;
-    }
-
     public String getBeacon() {
         return beacon;
     }
@@ -76,10 +71,6 @@ public class BeaconizedMarker {
 
     public String getTitle() {
         return title;
-    }
-
-    public List<TasksEntity> getTasks() {
-        return tasks;
     }
 
     public boolean isActive() {
