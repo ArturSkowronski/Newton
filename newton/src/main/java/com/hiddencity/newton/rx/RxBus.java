@@ -1,7 +1,6 @@
 package com.hiddencity.newton.rx;
 
 import com.hiddencity.newton.domain.BeaconEvent;
-import com.hiddencity.newton.domain.ContentID;
 
 import rx.Observable;
 import rx.functions.Func1;

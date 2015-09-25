@@ -1,11 +1,6 @@
 package com.hiddencity.newton.eddystone;
 
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
-import android.os.Messenger;
 import android.util.Log;
 
 import com.hiddencity.newton.rx.ObservableBeacon;
@@ -16,11 +11,8 @@ import com.kontakt.sdk.android.ble.configuration.scan.EddystoneScanContext;
 import com.kontakt.sdk.android.ble.configuration.scan.ScanContext;
 import com.kontakt.sdk.android.ble.connection.OnServiceReadyListener;
 import com.kontakt.sdk.android.ble.manager.ProximityManager;
-import com.kontakt.sdk.android.ble.service.ProximityService;
 import com.kontakt.sdk.android.common.KontaktSDK;
-import com.kontakt.sdk.android.common.interfaces.SDKSupplier;
 import com.kontakt.sdk.android.common.log.LogLevel;
-import com.kontakt.sdk.android.common.log.Logger;
 
 /**
  * Created by arturskowronski on 04/09/15.
