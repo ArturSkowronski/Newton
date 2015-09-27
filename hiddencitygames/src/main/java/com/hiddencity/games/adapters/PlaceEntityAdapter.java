@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.hiddencity.games.db.table.BeaconEntity;
 import com.hiddencity.games.db.table.PlacesEntity;
+import com.hiddencity.games.rest.ActiveBeaconResponse;
 import com.hiddencity.games.rest.BeaconizedMarker;
 
 import java.util.ArrayList;
@@ -50,6 +51,10 @@ public class PlaceEntityAdapter {
             placesEntities.add(placesEntity);
         }
         return placesEntities;
+    }
+
+    public void activateBeacon(ActiveBeaconResponse activeBeaconResponse){
+
     }
 
 

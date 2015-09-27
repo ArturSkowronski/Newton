@@ -10,7 +10,7 @@ import retrofit.http.Query;
 /**
  * Created by arturskowronski on 27/06/15.
  */
-public interface Places {
+public interface PlacesCall {
 
     @GET("/places")
     void places(Callback<List<BeaconizedMarker>> callback);

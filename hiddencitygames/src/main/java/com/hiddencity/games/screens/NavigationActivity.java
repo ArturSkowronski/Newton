@@ -22,8 +22,10 @@ import com.hiddencity.games.map.HiddenInfoAdapter;
 import com.hiddencity.games.HiddenSharedPreferences;
 import com.hiddencity.games.R;
 import com.hiddencity.games.adapters.PlaceEntityAdapter;
+import com.hiddencity.games.rest.ActiveBeaconCall;
+import com.hiddencity.games.rest.ActiveBeaconResponse;
 import com.hiddencity.games.rest.BeaconizedMarker;
-import com.hiddencity.games.rest.Places;
+import com.hiddencity.games.rest.PlacesCall;
 import com.hiddencity.games.rest.uri.ContentURL;
 import com.hiddencity.newton.domain.BeaconEvent;
 import com.hiddencity.newton.domain.ContentID;
@@ -75,7 +77,9 @@ public class NavigationActivity extends AppCompatActivity {
     EddystoneBeaconManager eddystoneBeaconManager;
     HiddenSharedPreferences hiddenSharedPreferences;
     HiddenGoogleMap hiddenGoogleMap;
-    Places places;
+
+    PlacesCall places;
+    ActiveBeaconCall activeBeacon;
 
     public static void goThere(Context context){
         Intent intent = new Intent(context, NavigationActivity.class);
@@ -101,7 +105,15 @@ public class NavigationActivity extends AppCompatActivity {
                 .setLog(new AndroidLog(TAG))
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build()
-                .create(Places.class);
+                .create(PlacesCall.class);
+
+        activeBeacon = new RestAdapter.Builder()
+                .setEndpoint(backendEndpoint)
+                .setLog(new AndroidLog(TAG))
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .build()
+                .create(ActiveBeaconCall.class);
+
 
         TranslucantStatusBar();
         GoogleMap();
@@ -115,15 +127,16 @@ public class NavigationActivity extends AppCompatActivity {
         if(hiddenSharedPreferences.arePlacesDownloaded()){
             List<PlacesEntity> placesEntities = placeEntityAdapter.findAll();
             hiddenGoogleMap.addMarkers(placesEntities);
+            callForActiveBeacon(placeEntityAdapter);
 
         } else {
             places.places(new Callback<List<BeaconizedMarker>>() {
 
                 @Override
                 public void success(List<BeaconizedMarker> beaconizedMarkers, Response response) {
-                    List<PlacesEntity> placesEntities = placeEntityAdapter.persistAll(beaconizedMarkers);
+                    final List<PlacesEntity> placesEntities = placeEntityAdapter.persistAll(beaconizedMarkers);
                     hiddenSharedPreferences.setPlacesDownloaded(true);
-                    hiddenGoogleMap.addMarkers(placesEntities);
+                    callForActiveBeacon(placeEntityAdapter);
                 }
 
                 @Override
@@ -132,6 +145,23 @@ public class NavigationActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void callForActiveBeacon(final PlaceEntityAdapter placeEntityAdapter) {
+
+        activeBeacon.getActiveBeacon(hiddenSharedPreferences.getPlayerId(), new Callback<ActiveBeaconResponse>() {
+            @Override
+            public void success(ActiveBeaconResponse activeBeaconResponse, Response response) {
+                final List<PlacesEntity> placesEntities = placeEntityAdapter.findAll();
+                placeEntityAdapter.activateBeacon(activeBeaconResponse);
+                hiddenGoogleMap.addMarkers(placesEntities);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(TAG, error.getResponse().getReason());
+            }
+        });
     }
 
     private void beaconNavigation() {
