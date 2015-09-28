@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import com.hiddencity.games.HiddenSharedPreferences;
 import com.hiddencity.games.R;
-import com.hiddencity.games.rest.JoinTeam;
+import com.hiddencity.games.rest.calls.JoinTeamCall;
 import com.hiddencity.games.rest.TeamJoinRequest;
 import com.hiddencity.games.rest.TeamJoinResponse;
 
@@ -21,7 +21,7 @@ import retrofit.RestAdapter;
 import retrofit.android.AndroidLog;
 
 public class PlayerScreen extends AppCompatActivity {
-    JoinTeam joinTeamRestEndpoint;
+    JoinTeamCall joinTeamRestEndpoint;
     private String TAG = "PlayerScreen";
 
     @OnClick(R.id.joinGame)
@@ -41,7 +41,7 @@ public class PlayerScreen extends AppCompatActivity {
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setLog(new AndroidLog(TAG))
                 .build()
-                .create(JoinTeam.class);
+                .create(JoinTeamCall.class);
         setContentView(R.layout.activity_player_screen);
         ButterKnife.bind(this);
     }

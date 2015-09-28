@@ -1,4 +1,7 @@
-package com.hiddencity.games.rest;
+package com.hiddencity.games.rest.calls;
+
+import com.hiddencity.games.rest.TeamJoinRequest;
+import com.hiddencity.games.rest.TeamJoinResponse;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -10,7 +13,7 @@ import retrofit.http.Query;
 /**
  * Created by arturskowronski on 27/06/15.
  */
-public interface JoinTeam {
+public interface JoinTeamCall {
 
     @POST("/joinTeam")
     void joinTeam(@Body TeamJoinRequest teamJoinRequest, Callback<TeamJoinResponse> callback);

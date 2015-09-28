@@ -53,7 +53,7 @@ public class NavigationActivity extends AppCompatActivity {
     @OnClick(R.id.simulate_beacon_1)
     public void sim1(View v){
         ContentID contentID = new ContentID();
-        contentID.setBeaconName("Beacon");
+        contentID.setBeaconName("BEACON_1");
         BeaconEvent beaconEvent = new BeaconEvent(contentID);
         onNext.call(beaconEvent);
     }
@@ -61,7 +61,7 @@ public class NavigationActivity extends AppCompatActivity {
     @OnClick(R.id.simulate_beacon_2)
     public void sim2(View v){
         ContentID contentID = new ContentID();
-        contentID.setBeaconName("Beacon");
+        contentID.setBeaconName("BEACON_2");
         BeaconEvent beaconEvent = new BeaconEvent(contentID);
         onNext.call(beaconEvent);
     }
@@ -69,7 +69,7 @@ public class NavigationActivity extends AppCompatActivity {
     @OnClick(R.id.simulate_beacon_3)
     public void sim3(View v){
         ContentID contentID = new ContentID();
-        contentID.setBeaconName("Beacon");
+        contentID.setBeaconName("BEACON_3");
         BeaconEvent beaconEvent = new BeaconEvent(contentID);
         onNext.call(beaconEvent);
     }

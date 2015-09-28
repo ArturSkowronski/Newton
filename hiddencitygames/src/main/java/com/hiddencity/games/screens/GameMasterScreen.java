@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.hiddencity.games.HiddenSharedPreferences;
 import com.hiddencity.games.R;
 import com.hiddencity.games.rest.Onboarding;
-import com.hiddencity.games.rest.RegisterTeam;
+import com.hiddencity.games.rest.calls.RegisterTeamCall;
 import com.hiddencity.games.rest.TeamRegistrationRequest;
 import com.hiddencity.games.rest.TeamRegistrationResponse;
 
@@ -28,7 +28,7 @@ import retrofit.client.Response;
 public class GameMasterScreen extends AppCompatActivity {
 
     final String TAG = "GameMasterScreen";
-    RegisterTeam registerTeamRestService;
+    RegisterTeamCall registerTeamRestService;
 
     @Bind(R.id.gameCode)
     TextView gameCode;
@@ -48,7 +48,7 @@ public class GameMasterScreen extends AppCompatActivity {
                 .setEndpoint(backendEndpoint)
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setLog(new AndroidLog(TAG))
-                .build().create(RegisterTeam.class);
+                .build().create(RegisterTeamCall.class);
 
         setContentView(R.layout.activity_game_master_screen);
         ButterKnife.bind(this);

@@ -12,6 +12,8 @@ import retrofit.http.Path;
 import retrofit.http.Query;
 
 public interface ActiveBeaconCall {
-    @GET("/active/{playerId}")
+
+    @GET("/places/active/{playerId}")
     void getActiveBeacon(@Path("playerId") String playerId, Callback<ActiveBeaconResponse> callback);
+
 }

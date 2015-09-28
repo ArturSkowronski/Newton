@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by arturskowronski on 06/09/15.
  */
-public class PlacesResponse {
+public class GetPlacesResponse {
     public String getId() {
         return id;
     }
@@ -17,7 +17,7 @@ public class PlacesResponse {
 
     String id;
 
-    public List<Place> getPlacesList(){
+    public List<PlaceResponse> getPlacesList(){
         return new ArrayList<>();
     }
 }
