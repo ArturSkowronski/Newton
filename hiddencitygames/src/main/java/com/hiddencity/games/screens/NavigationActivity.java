@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.hiddencity.games.adapters.BeaconEntityAdapter;
+import com.hiddencity.games.db.table.BeaconEntity;
 import com.hiddencity.games.db.table.PlacesEntity;
 import com.hiddencity.games.map.HiddenGoogleMap;
 import com.hiddencity.games.map.HiddenInfoAdapter;
@@ -179,14 +180,31 @@ public class NavigationActivity extends AppCompatActivity {
         @Override
         public void call(final BeaconEvent beaconEvent) {
             final BeaconEntityAdapter beaconEntityAdapter = new BeaconEntityAdapter(NavigationActivity.this);
+            final PlaceEntityAdapter placeEntityAdapter = new PlaceEntityAdapter(NavigationActivity.this);
 
-            String contentId = beaconEntityAdapter.findByName(beaconEvent.getContentID().getBeaconName()).getContent();
+            BeaconEntity beaconEntity = beaconEntityAdapter.findByName(beaconEvent.getContentID().getBeaconName());
 
-            if(contentId == null){
+            if(beaconEntity == null) {
                 Log.e(HiddenSharedPreferences.TAG, "Beacon " + beaconEvent.getContentID().getBeaconName() + " not in backend");
-            } else {
-                WebViewActivity.goThere(NavigationActivity.this, new ContentURL(contentId).getUrl());
+                return;
             }
+
+            PlacesEntity placesEntity = placeEntityAdapter.findByName(beaconEntity.getPlaceId());
+
+            if(!placesEntity.isActive()) {
+                Log.e(HiddenSharedPreferences.TAG, "Beacon " + beaconEvent.getContentID().getBeaconName() + " not active");
+                return;
+            }
+
+            String contentId = beaconEntity.getContent();
+
+            if(contentId == null) {
+                Log.e(HiddenSharedPreferences.TAG, "Beacon Content" + beaconEvent.getContentID().getBeaconName() + " not in backend");
+                return;
+            }
+
+            WebViewActivity.goThere(NavigationActivity.this, new ContentURL(contentId).getUrl());
+
         }
     };
 

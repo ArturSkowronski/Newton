@@ -39,20 +39,6 @@ public class PlaceEntityAdapter {
         return placesEntities;
     }
 
-    public List<PlacesEntity> findByBeaconName(){
-        List<PlacesEntity> placesEntities = new ArrayList<>();
-        Realm realm = Realm.getInstance(context);
-
-        RealmQuery<PlacesEntity> query = realm.where(PlacesEntity.class);
-
-        // Execute the query:
-        RealmResults<PlacesEntity> result1 = query.findAll();
-        for (PlacesEntity placesEntity : result1) {
-            placesEntities.add(placesEntity);
-        }
-        return placesEntities;
-    }
-
     public void activateBeacon(ActiveBeaconResponse activeBeaconResponse){
         Realm realm = Realm.getInstance(context);
         realm.beginTransaction();
@@ -70,7 +56,15 @@ public class PlaceEntityAdapter {
         realm.commitTransaction();
     }
 
+    public PlacesEntity findByName(String id){
+        Realm realm = Realm.getInstance(context);
 
+        RealmQuery<PlacesEntity> query = realm.where(PlacesEntity.class).equalTo("id", id);
+
+        PlacesEntity placesEntity = query.findFirst();
+
+        return placesEntity;
+    }
 
     public List<PlacesEntity> persistAll(List<BeaconizedMarker> beaconizedMarkers){
         for (BeaconizedMarker beaconizedMarker : beaconizedMarkers) {

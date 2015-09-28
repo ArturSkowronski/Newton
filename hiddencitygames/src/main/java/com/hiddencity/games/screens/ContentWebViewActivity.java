@@ -12,20 +12,19 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.hiddencity.games.R;
-import com.hiddencity.games.rest.uri.HiddenURL;
-import com.hiddencity.games.screens.interceptors.OnboardInterceptor;
+import com.hiddencity.games.screens.interceptors.ContentInterceptor;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class OnboardWebViewActivity extends Activity {
+public class ContentWebViewActivity extends Activity {
 
     @Bind(R.id.content)
     WebView mWebView;
 
-    public static final void goThere(Context context, HiddenURL url){
-        Intent intent = new Intent(context, OnboardWebViewActivity.class);
-        intent.putExtra("url", url.getUrl());
+    public static final void goThere(Context context, String url){
+        Intent intent = new Intent(context, ContentWebViewActivity.class);
+        intent.putExtra("url", url);
         context.startActivity(intent);
     };
 
@@ -46,14 +45,15 @@ public class OnboardWebViewActivity extends Activity {
 
         ButterKnife.bind(this);
         Bundle b = getIntent().getExtras();
-        String url = backendEndpoint + b.getString("url");
+        String url = backendEndpoint + b.getString("id");
 
         Log.i("url", url);
         mWebView.loadUrl(url);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        mWebView.addJavascriptInterface(new OnboardInterceptor(this), "Android");
-
+        mWebView.setVerticalScrollBarEnabled(false);
+        mWebView.setHorizontalScrollBarEnabled(false);
+        mWebView.addJavascriptInterface(new ContentInterceptor(this), "Android");
 
     }
 

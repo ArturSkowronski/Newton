@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class OnBoardActivity extends AppCompatActivity implements SpringListener {
+public class MainMenuActivity extends AppCompatActivity implements SpringListener {
 
     private SpringSystem mSpringSystem;
     private Spring mSpring;
@@ -31,8 +31,8 @@ public class OnBoardActivity extends AppCompatActivity implements SpringListener
 
     @OnClick(R.id.joinTeam)
     public void joinTeamSubmit(View view) {
-        Intent intent = new Intent(OnBoardActivity.this, PlayerScreen.class);
-        OnBoardActivity.this.startActivity(intent);
+        Intent intent = new Intent(MainMenuActivity.this, PlayerScreen.class);
+        MainMenuActivity.this.startActivity(intent);
     }
 
     @Bind(R.id.imageView)
@@ -43,8 +43,8 @@ public class OnBoardActivity extends AppCompatActivity implements SpringListener
 
     @OnClick(R.id.registerTeam)
     public void registerTeamSubmit(View view) {
-        Intent intent = new Intent(OnBoardActivity.this, GameMasterScreen.class);
-        OnBoardActivity.this.startActivity(intent);
+        Intent intent = new Intent(MainMenuActivity.this, GameMasterScreen.class);
+        MainMenuActivity.this.startActivity(intent);
     }
     private boolean mMovedUp = false;
     private float mOrigY;

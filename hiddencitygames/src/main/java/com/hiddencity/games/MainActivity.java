@@ -11,7 +11,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import com.crashlytics.android.Crashlytics;
 import com.hiddencity.games.gcm.RegistrationIntentService;
 import com.hiddencity.games.screens.NavigationActivity;
-import com.hiddencity.games.screens.OnBoardActivity;
+import com.hiddencity.games.screens.MainMenuActivity;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
                 startService(intent);
             }
 
-            Intent intent = new Intent(this, OnBoardActivity.class);
+            Intent intent = new Intent(this, MainMenuActivity.class);
             this.startActivity(intent);
         }
     }

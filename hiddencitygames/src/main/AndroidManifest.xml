@@ -70,7 +70,7 @@
             android:value="AIzaSyBCQJPUftqQzTsDTbnalnduGGGD7EyhegY" />
 
         <activity
-            android:name=".screens.OnBoardActivity"
+            android:name=".screens.MainMenuActivity"
             android:label="@string/title_activity_on_board" >
 
         </activity>
