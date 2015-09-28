@@ -1,8 +1,10 @@
-package com.hiddencity.games.rest;
+package com.hiddencity.games.rest.calls;
 
 /**
  * Created by arturskowronski on 27/09/15.
  */
+
+import com.hiddencity.games.rest.ActiveBeaconResponse;
 
 import retrofit.Callback;
 import retrofit.http.GET;
