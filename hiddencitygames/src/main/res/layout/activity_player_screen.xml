@@ -8,13 +8,22 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="@color/white"
+    android:background="@color/main_background"
 
     tools:context="com.hiddencity.games.screens.PlayerScreen">
-
-    <TextView android:text="Wpisz kod udostępniony przez mistrza gry"
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="40dp"
+        android:paddingRight="40dp"
+        android:orientation="vertical"
+        android:layout_weight="1">
+    <com.hiddencity.games.ui.HiddenTextView
+        android:id="@+id/enter_code"
+        android:text="Wpisz kod udostępniony przez mistrza gry"
         android:layout_width="fill_parent"
         android:layout_marginTop="50dp"
+        android:textSize="22sp"
         android:gravity="center"
         android:layout_height="wrap_content" />
 
@@ -27,21 +36,16 @@
         android:layout_gravity="center"
         android:inputType="number"
         android:layout_height="wrap_content" />
+    </LinearLayout>
 
-    <cyd.awesome.material.AwesomeButton
+    <com.hiddencity.games.ui.HiddenAndroidButton
         android:id="@+id/joinGame"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Dołącz do gry"
         android:padding="10dp"
-        android:layout_marginTop="50dp"
-
-
-        awesome:awesome_type="bootstrap_primary"
-        awesome:awesome_rounded_corners="true"
-
-        awesome:awesome_icon_right="FA_HOME"
-        awesome:awesome_font="font_awesome"
+        android:layout_margin="50dp"
+        android:layout_marginTop="0dp"
 
         />
 

@@ -53,8 +53,6 @@ public class OnboardWebViewActivity extends Activity {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         mWebView.addJavascriptInterface(new OnboardInterceptor(this), "Android");
-
-
     }
 
     @Override

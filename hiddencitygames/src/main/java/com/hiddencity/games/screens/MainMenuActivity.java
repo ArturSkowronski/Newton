@@ -70,7 +70,6 @@ public class MainMenuActivity extends AppCompatActivity implements SpringListene
 
                 }
             }, 2000);
-
         }
     };
 

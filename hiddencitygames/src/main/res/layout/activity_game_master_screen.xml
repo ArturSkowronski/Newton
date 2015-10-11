@@ -6,20 +6,28 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/main_background"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.hiddencity.games.screens.PlayerScreen">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="40dp"
+        android:paddingRight="40dp"
+        android:orientation="vertical"
+        android:layout_weight="1">
+    <com.hiddencity.games.ui.HiddenTextView
+        android:layout_marginTop="20dp"
 
-    <TextView
-        android:layout_marginTop="50dp"
-
-        android:text="Twój kod gry to"
+        android:text="Kod twojej gry to:"
+        android:textSize="24sp"
         android:layout_width="fill_parent"
         android:gravity="center"
         android:layout_height="wrap_content" />
 
 
-    <TextView
+    <com.hiddencity.games.ui.HiddenBoldLabel
         android:id="@+id/gameCode"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp"
@@ -30,31 +38,22 @@
         android:layout_height="wrap_content" />
 
 
-    <TextView android:text="Przekaż go pozostałym graczom"
+    <com.hiddencity.games.ui.HiddenTextView android:text="przekaż go pozostałym graczom, aby mogli dołączyć do gry"
         android:layout_width="fill_parent"
         android:gravity="center"
-        android:layout_height="wrap_content" />
+        android:textSize="24sp"
 
-    <TextView android:text="poczekaj aż wszyscy gracze dołączą do gry"
-        android:layout_width="fill_parent"
-        android:gravity="center"
-        android:layout_marginTop="50dp"
         android:layout_height="wrap_content" />
+    </LinearLayout>
 
-    <cyd.awesome.material.AwesomeButton
+    <com.hiddencity.games.ui.HiddenAndroidButton
         android:id="@+id/joinGame"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Dołącz do gry"
         android:padding="10dp"
-        android:layout_marginTop="50dp"
-
-
-        awesome:awesome_type="bootstrap_primary"
-        awesome:awesome_rounded_corners="true"
-
-        awesome:awesome_icon_right="FA_HOME"
-        awesome:awesome_font="font_awesome"
+        android:layout_margin="40dp"
+        android:layout_marginTop="0dp"
 
         />
 </LinearLayout>
