@@ -6,6 +6,6 @@
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="title_activity_game_master_screen">GameMasterScreen</string>
     <string name="title_activity_player_screen">PlayerScreen</string>
-    <string name="backend_endpoint">http://192.168.1.111:5000</string>
+    <string name="backend_endpoint">http://hiddencityapp.herokuapp.com</string>
     <string name="cannot_acquire_game_code">Nie udało się pobrać kodu gry</string>
 </resources>
