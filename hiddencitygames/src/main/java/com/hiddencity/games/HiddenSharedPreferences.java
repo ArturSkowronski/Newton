@@ -57,4 +57,8 @@ public class HiddenSharedPreferences {
     public void setGCMToken(String GCMToken) {
         sharedPreferences.edit().putString(Preferences.GCM_TOKEN, GCMToken).apply();
     }
+
+    public void clearAllProperties() {
+        sharedPreferences.edit().clear().apply();
+    }
 }

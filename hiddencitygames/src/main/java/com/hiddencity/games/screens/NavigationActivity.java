@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -38,6 +39,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -57,6 +59,17 @@ public class NavigationActivity extends AppCompatActivity {
         contentID.setBeaconName("1");
         BeaconEvent beaconEvent = new BeaconEvent(contentID);
         onNext.call(beaconEvent);
+    }
+
+    @OnClick(R.id.menu_item)
+    public void logout(View v){
+        hiddenSharedPreferences.clearAllProperties();
+        final PlaceEntityAdapter placeEntityAdapter = new PlaceEntityAdapter(NavigationActivity.this);
+        placeEntityAdapter.clearDB();
+        Intent intent = new Intent(NavigationActivity.this, MainMenuActivity.class);
+        NavigationActivity.this.startActivity(intent);
+        Toast.makeText(NavigationActivity.this, "Zostałeś pomyślnie wylogowany", Toast.LENGTH_LONG).show();
+
     }
 
     @OnClick(R.id.simulate_beacon_2)
@@ -81,6 +94,8 @@ public class NavigationActivity extends AppCompatActivity {
 
     PlacesCall places;
     ActiveBeaconCall activeBeacon;
+
+
 
     public static void goThere(Context context){
         Intent intent = new Intent(context, NavigationActivity.class);
@@ -170,7 +185,7 @@ public class NavigationActivity extends AppCompatActivity {
         eddystoneBeaconManager.startMonitoring(new ObservableBeacon() {
             @Override
             public void onBeaconInitialized(Observable<BeaconEvent> observable) {
-            observable.subscribe(onNext);
+                observable.subscribe(onNext);
             }
         });
     }
@@ -204,7 +219,7 @@ public class NavigationActivity extends AppCompatActivity {
             }
             Log.e(HiddenSharedPreferences.TAG, "Beacon Content GO!");
 
-            WebViewActivity.goThere(NavigationActivity.this, new ContentURL(contentId, hiddenSharedPreferences.getPlayerId()).getUrl());
+            ContentWebViewActivity.goThere(NavigationActivity.this, new ContentURL(contentId, hiddenSharedPreferences.getPlayerId()).getUrl());
 
         }
     };
@@ -217,22 +232,7 @@ public class NavigationActivity extends AppCompatActivity {
         hiddenGoogleMap.setInfoWindowAdapter(new HiddenInfoAdapter(this));
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_navigation, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     private void TranslucantStatusBar() {
 

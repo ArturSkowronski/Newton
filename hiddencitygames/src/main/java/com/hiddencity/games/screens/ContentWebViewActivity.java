@@ -12,6 +12,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.hiddencity.games.R;
+import com.hiddencity.games.audio.AudioJsInterface;
 import com.hiddencity.games.screens.interceptors.ContentInterceptor;
 
 import butterknife.Bind;
@@ -22,11 +23,13 @@ public class ContentWebViewActivity extends Activity {
     @Bind(R.id.content)
     WebView mWebView;
 
+    private  AudioJsInterface js;
+
     public static final void goThere(Context context, String url){
         Intent intent = new Intent(context, ContentWebViewActivity.class);
         intent.putExtra("url", url);
         context.startActivity(intent);
-    };
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,7 @@ public class ContentWebViewActivity extends Activity {
 
         ButterKnife.bind(this);
         Bundle b = getIntent().getExtras();
-        String url = backendEndpoint + b.getString("id");
+        String url = backendEndpoint + b.getString("url");
 
         Log.i("url", url);
         mWebView.loadUrl(url);
@@ -53,8 +56,21 @@ public class ContentWebViewActivity extends Activity {
         webSettings.setJavaScriptEnabled(true);
         mWebView.setVerticalScrollBarEnabled(false);
         mWebView.setHorizontalScrollBarEnabled(false);
-        mWebView.addJavascriptInterface(new ContentInterceptor(this), "Android");
+        js = new AudioJsInterface(this, mWebView);
+        mWebView.addJavascriptInterface(js, "AndroidAudio");
 
+    }
+
+    @Override
+    protected void onPause() {
+        js.stop();
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        js.stop();
+        super.onDestroy();
     }
 
     @Override

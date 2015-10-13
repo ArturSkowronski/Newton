@@ -63,6 +63,7 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
         transitive = true;
     }
+    compile 'com.github.clans:fab:1.6.1'
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.facebook.rebound:rebound:0.3.8'
     compile 'io.realm:realm-android:0.82.2'

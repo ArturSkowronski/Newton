@@ -3,6 +3,7 @@ package com.hiddencity.games.screens;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.hiddencity.games.R;
+import com.hiddencity.games.audio.AudioJsInterface;
 import com.hiddencity.games.rest.uri.HiddenURL;
 import com.hiddencity.games.screens.interceptors.OnboardInterceptor;
 
@@ -22,6 +24,7 @@ public class OnboardWebViewActivity extends Activity {
 
     @Bind(R.id.content)
     WebView mWebView;
+    private AudioJsInterface js;
 
     public static final void goThere(Context context, HiddenURL url){
         Intent intent = new Intent(context, OnboardWebViewActivity.class);
@@ -50,9 +53,26 @@ public class OnboardWebViewActivity extends Activity {
 
         Log.i("url", url);
         mWebView.loadUrl(url);
+        mWebView.setBackgroundColor(Color.BLACK);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        mWebView.setVerticalScrollBarEnabled(false);
+        mWebView.setHorizontalScrollBarEnabled(false);
+        js = new AudioJsInterface(this, mWebView);
+        mWebView.addJavascriptInterface(js, "AndroidAudio");
         mWebView.addJavascriptInterface(new OnboardInterceptor(this), "Android");
+    }
+
+    @Override
+    protected void onPause() {
+        js.stop();
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        js.stop();
+        super.onDestroy();
     }
 
     @Override

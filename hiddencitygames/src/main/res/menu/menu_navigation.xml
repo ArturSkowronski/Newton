@@ -2,6 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.hiddencity.games.screens.NavigationActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+    <item android:id="@+id/action_settings" android:title="Wyloguj"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

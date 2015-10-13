@@ -39,6 +39,20 @@ public class PlaceEntityAdapter {
         return placesEntities;
     }
 
+    public void clearDB(){
+        Realm realm = Realm.getInstance(context);
+
+        realm.beginTransaction();
+
+        realm.where(PlacesEntity.class).findAll().clear();
+        realm.where(BeaconEntity.class).findAll().clear();
+
+        realm.commitTransaction();
+
+        realm.close();
+
+    }
+
     public void activateBeacon(ActiveBeaconResponse activeBeaconResponse){
         Realm realm = Realm.getInstance(context);
         realm.beginTransaction();

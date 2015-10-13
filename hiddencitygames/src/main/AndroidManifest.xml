@@ -22,14 +22,17 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/app_logo"
         android:label="@string/app_name"
         tools:replace="android:theme"
+
         android:name="android.support.multidex.MultiDexApplication"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -71,31 +74,43 @@
 
         <activity
             android:name=".screens.MainMenuActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_on_board" >
 
         </activity>
         <activity
             android:name=".screens.NavigationActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_navigation" >
         </activity>
         <activity
             android:name=".screens.WebViewActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_navigation" >
         </activity>
         <activity
             android:name=".screens.WebViewButtonedActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_navigation" >
         </activity>
         <activity
             android:name=".screens.OnboardWebViewActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_navigation" >
         </activity>
         <activity
             android:name=".screens.GameMasterScreen"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_game_master_screen" >
         </activity>
         <activity
             android:name=".screens.PlayerScreen"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_player_screen" >
+        </activity>
+        <activity
+            android:name=".screens.ContentWebViewActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_player_screen" >
         </activity>
         <meta-data
