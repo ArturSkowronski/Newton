@@ -121,7 +121,6 @@ public class NavigationActivity extends AppCompatActivity {
         menuItem.setColorNormal(Color.parseColor("#4f000000"));
         menuItem.setColorPressed(Color.parseColor("#4f000000"));
         menuItem.setShowShadow(false);
-        menuItem.setImageDrawable(getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha));
         String backendEndpoint = getResources().getString(R.string.backend_endpoint);
 
         places = new RestAdapter.Builder()
