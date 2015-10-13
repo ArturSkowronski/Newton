@@ -32,8 +32,8 @@ public class MainActivity extends Activity {
 
         HiddenSharedPreferences hiddenSharedPreferences = new HiddenSharedPreferences(this);
 
-//        if (hiddenSharedPreferences.isPlayerLogged()) {
-        if (false) {
+        if (hiddenSharedPreferences.isPlayerLogged()) {
+//        if (false) {
             Intent intent = new Intent(this, NavigationActivity.class);
             this.startActivity(intent);
         } else {
