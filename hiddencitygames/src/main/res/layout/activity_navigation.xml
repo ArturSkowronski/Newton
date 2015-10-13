@@ -100,7 +100,8 @@
             fab:menu_colorNormal="#4f000000"
             fab:menu_colorPressed="#4f000000"
             fab:menu_colorRipple="#99FFFFFF"
-            fab:fab_label="Wyloguj" />
+            fab:fab_label="Wyloguj"
+            android:background="@color/background_material_dark" />
 
     </com.github.clans.fab.FloatingActionMenu>
 </FrameLayout>

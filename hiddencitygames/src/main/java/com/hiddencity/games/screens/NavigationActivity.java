@@ -14,6 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.hiddencity.games.adapters.BeaconEntityAdapter;
@@ -37,6 +38,7 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.List;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.realm.Realm;
@@ -60,6 +62,9 @@ public class NavigationActivity extends AppCompatActivity {
         BeaconEvent beaconEvent = new BeaconEvent(contentID);
         onNext.call(beaconEvent);
     }
+
+    @Bind(R.id.menu_item)
+    FloatingActionButton menuItem;
 
     @OnClick(R.id.menu_item)
     public void logout(View v){
@@ -113,7 +118,10 @@ public class NavigationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         ButterKnife.bind(this);
-
+        menuItem.setColorNormal(Color.parseColor("#4f000000"));
+        menuItem.setColorPressed(Color.parseColor("#4f000000"));
+        menuItem.setShowShadow(false);
+        menuItem.setImageDrawable(getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha));
         String backendEndpoint = getResources().getString(R.string.backend_endpoint);
 
         places = new RestAdapter.Builder()

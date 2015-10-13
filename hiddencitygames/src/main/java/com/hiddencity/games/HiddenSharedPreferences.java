@@ -59,6 +59,10 @@ public class HiddenSharedPreferences {
     }
 
     public void clearAllProperties() {
-        sharedPreferences.edit().clear().apply();
+        sharedPreferences.edit().remove(Preferences.PLACE_DOWNLOADED).apply();
+        sharedPreferences.edit().remove(Preferences.GAME_CODE).apply();
+        sharedPreferences.edit().remove(Preferences.PLAYER_ID).apply();
+
+
     }
 }
