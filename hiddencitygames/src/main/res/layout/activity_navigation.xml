@@ -97,9 +97,9 @@
             fab:fab_size="mini"
             fab:backgroundTint="@color/md_black_1000"
 
-            fab:menu_labels_colorNormal="#333333"
-            fab:menu_labels_colorPressed="#444444"
-            fab:menu_labels_colorRipple="#66FFFFFF"
+            fab:menu_colorNormal="#4f000000"
+            fab:menu_colorPressed="#4f000000"
+            fab:menu_colorRipple="#99FFFFFF"
             fab:fab_label="Wyloguj" />
 
     </com.github.clans.fab.FloatingActionMenu>
