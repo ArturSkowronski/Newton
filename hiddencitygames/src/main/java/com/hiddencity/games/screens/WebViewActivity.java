@@ -44,7 +44,7 @@ public class WebViewActivity extends Activity {
 
         ButterKnife.bind(this);
         Bundle b = getIntent().getExtras();
-        String url = backendEndpoint + b.getString("id");
+        String url = backendEndpoint + b.getString("url");
 
         Log.i("url", url);
         mWebView.loadUrl(url);

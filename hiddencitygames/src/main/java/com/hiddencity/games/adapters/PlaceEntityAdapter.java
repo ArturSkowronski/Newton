@@ -80,7 +80,7 @@ public class PlaceEntityAdapter {
             String image_url = beaconizedMarker.getImage_url() == null ? "" : beaconizedMarker.getImage_url();
             beaconEntity.setImageUrl(image_url);
             beaconEntity.setPlaceId(beaconizedMarker.get_id());
-            beaconEntity.setContent(beaconizedMarker.getContent());
+            beaconEntity.setContent(beaconizedMarker.get_id());
             beaconEntity.setId(beaconizedMarker.getBeacon());
             placeEntity.setBeacon(beaconEntity);
             realm.commitTransaction();

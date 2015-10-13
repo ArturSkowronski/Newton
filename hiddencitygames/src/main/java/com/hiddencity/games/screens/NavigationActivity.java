@@ -54,7 +54,7 @@ public class NavigationActivity extends AppCompatActivity {
     @OnClick(R.id.simulate_beacon_1)
     public void sim1(View v){
         ContentID contentID = new ContentID();
-        contentID.setBeaconName("BEACON_1");
+        contentID.setBeaconName("1");
         BeaconEvent beaconEvent = new BeaconEvent(contentID);
         onNext.call(beaconEvent);
     }
@@ -202,8 +202,9 @@ public class NavigationActivity extends AppCompatActivity {
                 Log.e(HiddenSharedPreferences.TAG, "Beacon Content" + beaconEvent.getContentID().getBeaconName() + " not in backend");
                 return;
             }
+            Log.e(HiddenSharedPreferences.TAG, "Beacon Content GO!");
 
-            WebViewActivity.goThere(NavigationActivity.this, new ContentURL(contentId).getUrl());
+            WebViewActivity.goThere(NavigationActivity.this, new ContentURL(contentId, hiddenSharedPreferences.getPlayerId()).getUrl());
 
         }
     };

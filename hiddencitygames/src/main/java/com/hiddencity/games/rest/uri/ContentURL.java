@@ -1,19 +1,23 @@
 package com.hiddencity.games.rest.uri;
 
+
 /**
  * Created by arturskowronski on 14/09/15.
  */
 public class ContentURL implements HiddenURL {
 
-    public ContentURL(String contentId) {
+    private final String playerId;
+    private final String contentId;
+
+    public ContentURL(String contentId, String playerId) {
         this.contentId = contentId;
+        this.playerId = playerId;
     }
 
-    String contentId;
 
     @Override
     public String getUrl() {
-        return "/content/" + contentId;
+        return "/task/" + contentId + "/"+ playerId;
     }
 
 }
