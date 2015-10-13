@@ -53,7 +53,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         fab:menu_fab_size="mini"
-        fab:menu_showShadow="true"
+        fab:menu_showShadow="false"
         fab:menu_shadowColor="#66000000"
         fab:menu_shadowRadius="4dp"
         fab:menu_shadowXOffset="1dp"
