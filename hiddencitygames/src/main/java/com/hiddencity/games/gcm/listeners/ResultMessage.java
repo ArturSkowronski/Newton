@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.hiddencity.games.HiddenNotification;
+import com.hiddencity.games.HiddenSharedPreferences;
 import com.hiddencity.games.rest.uri.ResultURL;
 import com.hiddencity.games.screens.NavigationActivity;
 import com.hiddencity.games.screens.WebViewButtonedActivity;
@@ -22,12 +23,10 @@ public class ResultMessage implements GCMProcessor {
     @Override
     public void process(String from, Bundle data) {
         String message = data.getString("status");
-
-        HiddenNotification hiddenNotification = new HiddenNotification();
-
-        if(message.equals("result")) {
+        HiddenSharedPreferences hiddenSharedPreferences = new HiddenSharedPreferences(context);
+        if(message.equals("next")) {
             String contentID = data.getString("contentID");
-            WebViewButtonedActivity.goThere(context, new ResultURL(contentID), NavigationActivity.class.getName());
+            WebViewButtonedActivity.goThere(context, new ResultURL(hiddenSharedPreferences.getPlayerId()), NavigationActivity.class.getName());
         }
     }
 }

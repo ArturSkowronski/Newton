@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.hiddencity.games.HiddenNotification;
 import com.hiddencity.games.adapters.BeaconEntityAdapter;
 import com.hiddencity.games.db.table.BeaconEntity;
 import com.hiddencity.games.db.table.PlacesEntity;
@@ -228,8 +229,8 @@ public class NavigationActivity extends AppCompatActivity {
             }
             Log.e(HiddenSharedPreferences.TAG, "Beacon Content GO!");
 
-            ContentWebViewActivity.goThere(NavigationActivity.this, new ContentURL(contentId, hiddenSharedPreferences.getPlayerId()).getUrl());
-
+            HiddenNotification hiddenNotification = new HiddenNotification();
+            hiddenNotification.sendBeaconNotification(NavigationActivity.this, contentId, hiddenSharedPreferences.getPlayerId(), beaconEntity.getTitle());
         }
     };
 

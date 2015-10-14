@@ -13,8 +13,6 @@ public class OnboardURL implements HiddenURL {
 
     @Override
     public String getUrl() {
-        return "/onboarding/mock";
-//        return "/onboarding?player_id=" + playerId;
+        return "/onboarding?player_id=" + playerId;
     }
-
 }

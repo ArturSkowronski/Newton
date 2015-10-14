@@ -5,15 +5,15 @@ package com.hiddencity.games.rest.uri;
  */
 public class ResultURL implements HiddenURL {
 
-    public ResultURL(String contentId) {
-        this.contentId = contentId;
+    public ResultURL(String playerId) {
+        this.playerId = playerId;
     }
 
-    String contentId;
+    String playerId;
 
     @Override
     public String getUrl() {
-        return "/content/" + contentId;
+        return "/achievements/" + playerId;
     }
 
 }

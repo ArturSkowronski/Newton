@@ -70,7 +70,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBCQJPUftqQzTsDTbnalnduGGGD7EyhegY" />
+            android:value="AIzaSyALgE0rBWVcy8sMQ39PM4CtcuOBMPssQvs" />
 
         <activity
             android:name=".screens.MainMenuActivity"
