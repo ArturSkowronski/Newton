@@ -3,9 +3,9 @@ package com.hiddencity.games.rest.uri;
 /**
  * Created by arturskowronski on 14/09/15.
  */
-public class ResultURL implements HiddenURL {
+public class AchievementURL implements HiddenURL {
 
-    public ResultURL(String playerId) {
+    public AchievementURL(String playerId) {
         this.playerId = playerId;
     }
 
@@ -13,7 +13,7 @@ public class ResultURL implements HiddenURL {
 
     @Override
     public String getUrl() {
-        return "/results/" + playerId;
+        return "/achievements/" + playerId;
     }
 
 }
