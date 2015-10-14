@@ -12,6 +12,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.hiddencity.games.R;
+import com.hiddencity.games.screens.interceptors.ResultInterceptor;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -21,11 +22,13 @@ public class ResultWebViewActivity extends Activity {
     @Bind(R.id.content)
     WebView mWebView;
 
+    ResultInterceptor resultInterceptor;
+
     public static final void goThere(Context context, String url){
         Intent intent = new Intent(context, ResultWebViewActivity.class);
         intent.putExtra("url", url);
         context.startActivity(intent);
-    };
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,8 @@ public class ResultWebViewActivity extends Activity {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         mWebView.setVerticalScrollBarEnabled(false);
+        resultInterceptor = new ResultInterceptor(this);
+        mWebView.addJavascriptInterface(resultInterceptor, "Android");
         mWebView.setHorizontalScrollBarEnabled(false);
     }
 

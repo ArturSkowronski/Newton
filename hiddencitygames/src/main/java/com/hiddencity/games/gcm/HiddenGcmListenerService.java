@@ -9,7 +9,7 @@ import android.os.Bundle;
 import com.google.android.gms.gcm.GcmListenerService;
 import com.hiddencity.games.gcm.listeners.ResultMessage;
 import com.hiddencity.games.gcm.listeners.GCMProcessor;
-import com.hiddencity.games.gcm.listeners.AchievmentMessage;
+import com.hiddencity.games.gcm.listeners.AchievmentsMessage;
 import com.hiddencity.games.gcm.listeners.ResyncMapMessage;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class HiddenGcmListenerService extends GcmListenerService {
     public void onMessageReceived(String from, Bundle data) {
 
         gcmProcessors.add(new ResyncMapMessage(this));
-        gcmProcessors.add(new AchievmentMessage(this));
+        gcmProcessors.add(new AchievmentsMessage(this));
         gcmProcessors.add(new ResultMessage(this));
 
         for (GCMProcessor gcmProcessor : gcmProcessors) {

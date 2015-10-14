@@ -13,6 +13,7 @@ import android.webkit.WebView;
 
 import com.hiddencity.games.R;
 import com.hiddencity.games.audio.AudioJsInterface;
+import com.hiddencity.games.screens.interceptors.AchievementInterceptor;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,9 +23,10 @@ public class AchievmentWebViewActivity extends Activity {
     @Bind(R.id.content)
     WebView mWebView;
 
-    private  AudioJsInterface js;
+    private AudioJsInterface js;
+    private AchievementInterceptor achievementInterceptor;
 
-    public static final void goThere(Context context, String url){
+    public static void goThere(Context context, String url){
         Intent intent = new Intent(context, AchievmentWebViewActivity.class);
         intent.putExtra("url", url);
         context.startActivity(intent);
@@ -56,9 +58,13 @@ public class AchievmentWebViewActivity extends Activity {
         mWebView.setVerticalScrollBarEnabled(false);
         mWebView.setHorizontalScrollBarEnabled(false);
         js = new AudioJsInterface(this, mWebView);
+        achievementInterceptor = new AchievementInterceptor(this);
         mWebView.addJavascriptInterface(js, "AndroidAudio");
+        mWebView.addJavascriptInterface(achievementInterceptor, "Android");
 
     }
+
+
 
     @Override
     protected void onPause() {
