@@ -38,7 +38,7 @@ public class ResultInterceptor {
     }
 
     @JavascriptInterface
-    public void backToGame() {
+    public void gameAction(String action) {
         logout();
     }
 

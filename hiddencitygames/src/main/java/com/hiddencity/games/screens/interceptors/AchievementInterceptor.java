@@ -26,7 +26,7 @@ public class AchievementInterceptor {
     }
 
     @JavascriptInterface
-    public void backToGame() {
+    public void gameAction(String action) {
         NavigationActivity.goThere(mContext);
     }
 
