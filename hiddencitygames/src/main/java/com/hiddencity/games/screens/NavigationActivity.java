@@ -7,8 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,24 +15,20 @@ import android.widget.Toast;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.hiddencity.games.HiddenNotification;
-import com.hiddencity.games.adapters.BeaconEntityAdapter;
-import com.hiddencity.games.db.table.BeaconEntity;
-import com.hiddencity.games.db.table.PlacesEntity;
-import com.hiddencity.games.map.HiddenGoogleMap;
-import com.hiddencity.games.map.HiddenInfoAdapter;
+import com.hiddencity.games.BeaconAction;
 import com.hiddencity.games.HiddenSharedPreferences;
 import com.hiddencity.games.R;
 import com.hiddencity.games.adapters.PlaceEntityAdapter;
-import com.hiddencity.games.rest.calls.ActiveBeaconCall;
+import com.hiddencity.games.db.table.PlacesEntity;
+import com.hiddencity.games.map.HiddenGoogleMap;
+import com.hiddencity.games.map.HiddenInfoAdapter;
 import com.hiddencity.games.rest.ActiveBeaconResponse;
 import com.hiddencity.games.rest.BeaconizedMarker;
+import com.hiddencity.games.rest.calls.ActiveBeaconCall;
 import com.hiddencity.games.rest.calls.PlacesCall;
-import com.hiddencity.games.rest.uri.ContentURL;
 import com.hiddencity.newton.domain.BeaconEvent;
 import com.hiddencity.newton.domain.ContentID;
 import com.hiddencity.newton.eddystone.EddystoneBeaconManager;
-import com.hiddencity.newton.rx.ObservableBeacon;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.List;
@@ -42,19 +36,18 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.realm.Realm;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.android.AndroidLog;
 import retrofit.client.Response;
-import rx.Observable;
 import rx.functions.Action1;
 
 
 public class NavigationActivity extends AppCompatActivity {
 
     private String TAG = "NavigationActivity";
+    Action1<BeaconEvent> onNext;
 
     @OnClick(R.id.simulate_beacon_1)
     public void sim1(View v){
@@ -101,8 +94,6 @@ public class NavigationActivity extends AppCompatActivity {
     PlacesCall places;
     ActiveBeaconCall activeBeacon;
 
-
-
     public static void goThere(Context context){
         Intent intent = new Intent(context, NavigationActivity.class);
         context.startActivity(intent);
@@ -121,10 +112,10 @@ public class NavigationActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         menuItem.setColorNormal(Color.parseColor("#4f000000"));
         menuItem.setColorPressed(Color.parseColor("#4f000000"));
-//        menuItem.setShowShadow(false);
         menuItem.setImageDrawable(getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha));
 
         String backendEndpoint = getResources().getString(R.string.backend_endpoint);
+        onNext = new BeaconAction(this).get();
 
         places = new RestAdapter.Builder()
                 .setEndpoint(backendEndpoint)
@@ -140,14 +131,12 @@ public class NavigationActivity extends AppCompatActivity {
                 .build()
                 .create(ActiveBeaconCall.class);
 
-
         TranslucantStatusBar();
         GoogleMap();
 
         hiddenSharedPreferences = new HiddenSharedPreferences(NavigationActivity.this);
         eddystoneBeaconManager = new EddystoneBeaconManager(this);
 
-        beaconNavigation();
         final PlaceEntityAdapter placeEntityAdapter = new PlaceEntityAdapter(this);
 
         if(hiddenSharedPreferences.arePlacesDownloaded()){
@@ -190,49 +179,6 @@ public class NavigationActivity extends AppCompatActivity {
         });
     }
 
-    private void beaconNavigation() {
-
-        eddystoneBeaconManager.startMonitoring(new ObservableBeacon() {
-            @Override
-            public void onBeaconInitialized(Observable<BeaconEvent> observable) {
-                observable.subscribe(onNext);
-            }
-        });
-    }
-
-
-    Action1<BeaconEvent> onNext = new Action1<BeaconEvent>() {
-        @Override
-        public void call(final BeaconEvent beaconEvent) {
-            final BeaconEntityAdapter beaconEntityAdapter = new BeaconEntityAdapter(NavigationActivity.this);
-            final PlaceEntityAdapter placeEntityAdapter = new PlaceEntityAdapter(NavigationActivity.this);
-
-            BeaconEntity beaconEntity = beaconEntityAdapter.findByName(beaconEvent.getContentID().getBeaconName());
-
-            if(beaconEntity == null) {
-                Log.e(HiddenSharedPreferences.TAG, "Beacon " + beaconEvent.getContentID().getBeaconName() + " not in backend");
-                return;
-            }
-
-            PlacesEntity placesEntity = placeEntityAdapter.findByName(beaconEntity.getPlaceId());
-
-            if(!placesEntity.isActive()) {
-                Log.e(HiddenSharedPreferences.TAG, "Beacon " + beaconEvent.getContentID().getBeaconName() + " not active");
-                return;
-            }
-
-            String contentId = beaconEntity.getContent();
-
-            if(contentId == null) {
-                Log.e(HiddenSharedPreferences.TAG, "Beacon Content" + beaconEvent.getContentID().getBeaconName() + " not in backend");
-                return;
-            }
-            Log.e(HiddenSharedPreferences.TAG, "Beacon Content GO!");
-
-            HiddenNotification hiddenNotification = new HiddenNotification();
-            hiddenNotification.sendBeaconNotification(NavigationActivity.this, contentId, hiddenSharedPreferences.getPlayerId(), beaconEntity.getTitle());
-        }
-    };
 
 
     private void GoogleMap() {
