@@ -16,4 +16,9 @@ public class AchievementURL implements HiddenURL {
         return "/achievements/" + playerId;
     }
 
+    public String getMock() {
+        return "/achievements/mock";
+    }
+
+
 }

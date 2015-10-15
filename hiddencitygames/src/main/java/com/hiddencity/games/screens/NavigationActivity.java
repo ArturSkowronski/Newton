@@ -26,6 +26,8 @@ import com.hiddencity.games.rest.ActiveBeaconResponse;
 import com.hiddencity.games.rest.BeaconizedMarker;
 import com.hiddencity.games.rest.calls.ActiveBeaconCall;
 import com.hiddencity.games.rest.calls.PlacesCall;
+import com.hiddencity.games.rest.uri.AchievementURL;
+import com.hiddencity.games.rest.uri.ResultURL;
 import com.hiddencity.newton.domain.BeaconEvent;
 import com.hiddencity.newton.domain.ContentID;
 import com.hiddencity.newton.eddystone.EddystoneBeaconManager;
@@ -85,6 +87,19 @@ public class NavigationActivity extends AppCompatActivity {
         contentID.setBeaconName("BEACON_3");
         BeaconEvent beaconEvent = new BeaconEvent(contentID);
         onNext.call(beaconEvent);
+    }
+
+    @OnClick(R.id.simulate_4)
+    public void sim4(View v){
+        HiddenSharedPreferences hiddenSharedPreferences = new HiddenSharedPreferences(NavigationActivity.this);
+        AchievmentWebViewActivity.goThere(NavigationActivity.this, new AchievementURL(hiddenSharedPreferences.getPlayerId()).getMock());
+    }
+
+
+    @OnClick(R.id.simulate_5)
+    public void sim5(View v){
+        HiddenSharedPreferences hiddenSharedPreferences = new HiddenSharedPreferences(NavigationActivity.this);
+        ResultWebViewActivity.goThere(NavigationActivity.this, new ResultURL(hiddenSharedPreferences.getPlayerId()).getMock());
     }
 
     EddystoneBeaconManager eddystoneBeaconManager;

@@ -16,4 +16,9 @@ public class ResultURL implements HiddenURL {
         return "/results/" + playerId;
     }
 
+    public String getMock() {
+        return "/results/mock";
+    }
+
+
 }

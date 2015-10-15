@@ -24,7 +24,7 @@ public class ResultWebViewActivity extends Activity {
 
     ResultInterceptor resultInterceptor;
 
-    public static final void goThere(Context context, String url){
+    public static void goThere(Context context, String url){
         Intent intent = new Intent(context, ResultWebViewActivity.class);
         intent.putExtra("url", url);
         context.startActivity(intent);
@@ -47,16 +47,16 @@ public class ResultWebViewActivity extends Activity {
 
         ButterKnife.bind(this);
         Bundle b = getIntent().getExtras();
-        String url = backendEndpoint + b.getString("id");
+        String url = backendEndpoint + b.getString("url");
 
         Log.i("url", url);
         mWebView.loadUrl(url);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         mWebView.setVerticalScrollBarEnabled(false);
+        mWebView.setHorizontalScrollBarEnabled(false);
         resultInterceptor = new ResultInterceptor(this);
         mWebView.addJavascriptInterface(resultInterceptor, "Android");
-        mWebView.setHorizontalScrollBarEnabled(false);
     }
 
     @Override
