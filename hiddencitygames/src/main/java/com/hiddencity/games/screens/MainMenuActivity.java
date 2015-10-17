@@ -38,6 +38,8 @@ public class MainMenuActivity extends AppCompatActivity implements SpringListene
 
     @OnClick(R.id.joinTeam)
     public void joinTeamSubmit(View view) {
+        HiddenSharedPreferences hiddenSharedPreferences = new HiddenSharedPreferences(MainMenuActivity.this);
+        if(hiddenSharedPreferences.getGCMToken().equals("")) Toast.makeText(MainMenuActivity.this, "Trwa pobieranie zawartości, spróbuj ponownie za parę sekund", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainMenuActivity.this, PlayerScreen.class);
         MainMenuActivity.this.startActivity(intent);
     }
@@ -50,6 +52,8 @@ public class MainMenuActivity extends AppCompatActivity implements SpringListene
 
     @OnClick(R.id.registerTeam)
     public void registerTeamSubmit(View view) {
+        HiddenSharedPreferences hiddenSharedPreferences = new HiddenSharedPreferences(MainMenuActivity.this);
+        if(hiddenSharedPreferences.getGCMToken().equals("")) Toast.makeText(MainMenuActivity.this, "Trwa pobieranie zawartości, spróbuj ponownie za parę sekund", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainMenuActivity.this, GameMasterScreen.class);
         MainMenuActivity.this.startActivity(intent);
     }
@@ -64,7 +68,6 @@ public class MainMenuActivity extends AppCompatActivity implements SpringListene
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    buttonPanel.setVisibility(View.VISIBLE);
                     if (mMovedUp) {
                         mSpring.setEndValue(mOrigY);
                     } else {
@@ -74,6 +77,14 @@ public class MainMenuActivity extends AppCompatActivity implements SpringListene
                     }
 
                     mMovedUp = !mMovedUp;
+                    final Handler handler2 = new Handler();
+
+                    handler2.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            buttonPanel.setVisibility(View.VISIBLE);
+                        }
+                    }, 1000);
 
                 }
             }, 2500);

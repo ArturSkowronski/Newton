@@ -20,6 +20,8 @@ public class BeaconAction {
     }
 
     Context context;
+    String TAG = "Newton";
+
 
     public Action1<BeaconEvent> get(){
         return new Action1<BeaconEvent>() {
@@ -30,25 +32,26 @@ public class BeaconAction {
 
                 BeaconEntity beaconEntity = beaconEntityAdapter.findByName(beaconEvent.getContentID().getBeaconName());
 
+
                 if(beaconEntity == null) {
-                    Log.e(HiddenSharedPreferences.TAG, "Beacon " + beaconEvent.getContentID().getBeaconName() + " not in backend");
+                    Log.e(TAG, "Beacon " + beaconEvent.getContentID().getBeaconName() + " not in backend");
                     return;
                 }
 
                 PlacesEntity placesEntity = placeEntityAdapter.findByName(beaconEntity.getPlaceId());
 
                 if(!placesEntity.isActive()) {
-                    Log.e(HiddenSharedPreferences.TAG, "Beacon " + beaconEvent.getContentID().getBeaconName() + " not active");
+                    Log.e(TAG, "Beacon " + beaconEvent.getContentID().getBeaconName() + " not active");
                     return;
                 }
 
                 String contentId = beaconEntity.getContent();
 
                 if(contentId == null) {
-                    Log.e(HiddenSharedPreferences.TAG, "Beacon Content" + beaconEvent.getContentID().getBeaconName() + " not in backend");
+                    Log.e(TAG, "Beacon Content" + beaconEvent.getContentID().getBeaconName() + " not in backend");
                     return;
                 }
-                Log.e(HiddenSharedPreferences.TAG, "Beacon Content GO!");
+                Log.e(TAG, "Beacon Content GO!");
 
                 HiddenNotification hiddenNotification = new HiddenNotification();
                 hiddenNotification.sendBeaconNotification(context, contentId, new HiddenSharedPreferences(context).getPlayerId(), beaconEntity.getTitle());

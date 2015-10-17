@@ -5,6 +5,7 @@ package com.hiddencity.games.gcm;
  */
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
 import com.hiddencity.games.gcm.listeners.ResultMessage;
@@ -17,13 +18,14 @@ import java.util.List;
 
 public class HiddenGcmListenerService extends GcmListenerService {
 
-    private static final String TAG = "HiddenGcmListenerService";
-    List<GCMProcessor> gcmProcessors = new ArrayList<>();
+    private static final String TAG = "HiddenGcmListener";
 
     @Override
     public void onMessageReceived(String from, Bundle data) {
+        Log.i(TAG, "Message Received " + from);
+        List<GCMProcessor> gcmProcessors = new ArrayList<>();
 
-        gcmProcessors.add(new ResyncMapMessage(this));
+//        gcmProcessors.add(new ResyncMapMessage(this));
         gcmProcessors.add(new AchievmentsMessage(this));
         gcmProcessors.add(new ResultMessage(this));
 

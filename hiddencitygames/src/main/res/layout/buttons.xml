@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="50dp"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/simulate_beacon_1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Sim1" />
+
+        <Button
+            android:id="@+id/simulate_beacon_2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Sim2" />
+
+        <Button
+            android:id="@+id/simulate_beacon_3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Sim3" />
+
+        <Button
+            android:id="@+id/simulate_beacon_4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Sim4" />
+
+        <Button
+            android:id="@+id/simulate_beacon_5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Sim5" />
+
+        <Button
+            android:id="@+id/simulate_beacon_6"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Sim6" />
+
+        <Button
+            android:id="@+id/simulate_beacon_7"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Sim7" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/simulate_beacon_8"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Sim8" />
+
+        <Button
+            android:id="@+id/simulate_beacon_9"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Sim9" />
+
+        <Button
+            android:id="@+id/simulate_beacon_10"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Sim10" />
+
+        <Button
+            android:id="@+id/simulate_beacon_11"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Sim11" />
+
+        <Button
+            android:id="@+id/simulate_beacon_12"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Sim12" />
+
+        <Button
+            android:id="@+id/simulate_beacon_13"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Sim13" />
+
+        <Button
+            android:id="@+id/simulate_beacon_14"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Sim14" />
+
+        <Button
+            android:id="@+id/simulate_beacon_15"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Sim15" />
+
+
+    </LinearLayout>
+</LinearLayout>

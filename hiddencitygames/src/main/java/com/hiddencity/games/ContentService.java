@@ -3,6 +3,7 @@ package com.hiddencity.games;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.hiddencity.newton.domain.BeaconEvent;
@@ -18,7 +19,7 @@ import rx.functions.Action1;
 
 public class ContentService extends Service
 {
-    private static final String TAG = "HiddenCity Beacon Service";
+    private static final String TAG = "HiddenCity Beacon";
     Action1<BeaconEvent> onNext;
 
     @Override
@@ -41,9 +42,8 @@ public class ContentService extends Service
     @Override
     public void onCreate() {
         super.onCreate();
-        Toast.makeText(this, "HiddenCity Beacon Service", Toast.LENGTH_LONG).show();
+        Log.e(TAG, "RUN");
         onNext = new BeaconAction(this).get();
-
         initializeService();
     }
 

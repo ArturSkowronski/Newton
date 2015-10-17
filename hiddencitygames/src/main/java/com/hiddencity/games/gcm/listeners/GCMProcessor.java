@@ -1,6 +1,5 @@
 package com.hiddencity.games.gcm.listeners;
 
-import android.content.Context;
 import android.os.Bundle;
 
 /**

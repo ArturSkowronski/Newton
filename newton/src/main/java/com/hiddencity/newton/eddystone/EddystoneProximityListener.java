@@ -52,6 +52,8 @@ public class EddystoneProximityListener implements ProximityManager.ProximityLis
                 Log.i(TAG, "DEVICE_DISCOVERED");
 
                 String name = eddystoneEvent.getDeviceList().get(0).getInstanceId();
+                Log.i(TAG, "DEVICE_DISCOVERED: " + name);
+
                 if(name!=null){
                     ContentID contentID1 = new ContentID();
                     contentID1.setBeaconName(name);

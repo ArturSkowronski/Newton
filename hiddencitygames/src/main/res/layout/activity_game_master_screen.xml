@@ -21,7 +21,7 @@
         android:layout_marginTop="20dp"
 
         android:text="Kod twojej gry to:"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:layout_width="fill_parent"
         android:gravity="center"
         android:layout_height="wrap_content" />
@@ -41,7 +41,7 @@
     <com.hiddencity.games.ui.HiddenTextView android:text="przekaż go pozostałym graczom, aby mogli dołączyć do gry"
         android:layout_width="fill_parent"
         android:gravity="center"
-        android:textSize="24sp"
+        android:textSize="22sp"
 
         android:layout_height="wrap_content" />
     </LinearLayout>
@@ -50,7 +50,8 @@
         android:id="@+id/joinGame"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Dołącz do gry"
+        android:text="dołącz do gry"
+        android:textAllCaps="false"
         android:padding="10dp"
         android:layout_margin="40dp"
         android:layout_marginTop="0dp"

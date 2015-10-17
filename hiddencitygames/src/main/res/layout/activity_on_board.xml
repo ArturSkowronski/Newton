@@ -37,7 +37,8 @@
             android:id="@+id/registerTeam"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Zarejestruj drużynę"
+            android:textAllCaps="false"
+            android:text="zarejestruj drużynę"
             android:layout_margin="10dp"
             android:padding="10dp"
             />
@@ -46,7 +47,8 @@
             android:id="@+id/joinTeam"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Dołącz do drużyny"
+            android:textAllCaps="false"
+            android:text="dołącz do drużyny"
             android:layout_margin="10dp"
             android:padding="10dp"
             />

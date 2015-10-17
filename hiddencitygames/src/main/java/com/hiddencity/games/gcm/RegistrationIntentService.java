@@ -32,6 +32,7 @@ public class RegistrationIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        Log.i(TAG, "GCM Registration Token PRE");
 
         try {
             // [START register_for_gcm]

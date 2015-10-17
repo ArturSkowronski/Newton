@@ -29,6 +29,7 @@ public class AchievmentWebViewActivity extends Activity {
     public static void goThere(Context context, String url){
         Intent intent = new Intent(context, AchievmentWebViewActivity.class);
         intent.putExtra("url", url);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 

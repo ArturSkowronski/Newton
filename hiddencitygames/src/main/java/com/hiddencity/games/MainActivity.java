@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.hiddencity.games.gcm.RegistrationIntentService;
@@ -17,7 +18,7 @@ import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends Activity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "HiddenCity MainActivity";
 
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     GoogleServicesAccessor googleServicesAccessor = new GoogleServicesAccessor();
@@ -34,13 +35,17 @@ public class MainActivity extends Activity {
 
         if (hiddenSharedPreferences.isPlayerLogged()) {
 //        if (false) {
+            Log.e(TAG, "IS LOGGED");
             Intent intent = new Intent(this, NavigationActivity.class);
             this.startActivity(intent);
         } else {
-
+            Log.e(TAG, "IS NOT LOGGED");
             if (googleServicesAccessor.checkPlayServices(this)) {
+                Log.e(TAG, "HAS PLAY SERVICES");
                 Intent intent = new Intent(this, RegistrationIntentService.class);
                 startService(intent);
+            } else {
+                Log.e(TAG, "LACK OF PLAY SERVICES");
             }
 
             Intent intent = new Intent(this, MainMenuActivity.class);

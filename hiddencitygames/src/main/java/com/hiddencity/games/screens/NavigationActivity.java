@@ -16,6 +16,7 @@ import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.hiddencity.games.BeaconAction;
+import com.hiddencity.games.ContentService;
 import com.hiddencity.games.HiddenSharedPreferences;
 import com.hiddencity.games.R;
 import com.hiddencity.games.adapters.PlaceEntityAdapter;
@@ -31,6 +32,7 @@ import com.hiddencity.games.rest.uri.ResultURL;
 import com.hiddencity.newton.domain.BeaconEvent;
 import com.hiddencity.newton.domain.ContentID;
 import com.hiddencity.newton.eddystone.EddystoneBeaconManager;
+import com.hiddencity.newton.rx.ObservableBeacon;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.List;
@@ -43,6 +45,7 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.android.AndroidLog;
 import retrofit.client.Response;
+import rx.Observable;
 import rx.functions.Action1;
 
 
@@ -51,10 +54,10 @@ public class NavigationActivity extends AppCompatActivity {
     private String TAG = "NavigationActivity";
     Action1<BeaconEvent> onNext;
 
-    @OnClick(R.id.simulate_beacon_1)
-    public void sim1(View v){
+
+    private void simulateBeacon(String p1Beacon) {
         ContentID contentID = new ContentID();
-        contentID.setBeaconName("1");
+        contentID.setBeaconName(p1Beacon);
         BeaconEvent beaconEvent = new BeaconEvent(contentID);
         onNext.call(beaconEvent);
     }
@@ -73,36 +76,79 @@ public class NavigationActivity extends AppCompatActivity {
 
     }
 
+    @OnClick(R.id.simulate_beacon_1)
+    public void sim1(View v){
+        simulateBeacon("434c776a544a");
+    }
+
     @OnClick(R.id.simulate_beacon_2)
     public void sim2(View v){
-        ContentID contentID = new ContentID();
-        contentID.setBeaconName("BEACON_2");
-        BeaconEvent beaconEvent = new BeaconEvent(contentID);
-        onNext.call(beaconEvent);
+        simulateBeacon("423067396a55");
     }
 
     @OnClick(R.id.simulate_beacon_3)
     public void sim3(View v){
-        ContentID contentID = new ContentID();
-        contentID.setBeaconName("BEACON_3");
-        BeaconEvent beaconEvent = new BeaconEvent(contentID);
-        onNext.call(beaconEvent);
+        simulateBeacon("69506c446155");
     }
 
-    @OnClick(R.id.simulate_4)
+    @OnClick(R.id.simulate_beacon_4)
     public void sim4(View v){
-        HiddenSharedPreferences hiddenSharedPreferences = new HiddenSharedPreferences(NavigationActivity.this);
-        AchievmentWebViewActivity.goThere(NavigationActivity.this, new AchievementURL(hiddenSharedPreferences.getPlayerId()).getMock());
+        simulateBeacon("46343159444d");
     }
 
-
-    @OnClick(R.id.simulate_5)
+    @OnClick(R.id.simulate_beacon_5)
     public void sim5(View v){
-        HiddenSharedPreferences hiddenSharedPreferences = new HiddenSharedPreferences(NavigationActivity.this);
-        ResultWebViewActivity.goThere(NavigationActivity.this, new ResultURL(hiddenSharedPreferences.getPlayerId()).getMock());
+        simulateBeacon("6d6c6c6d5343");
     }
 
-    EddystoneBeaconManager eddystoneBeaconManager;
+    @OnClick(R.id.simulate_beacon_6)
+    public void sim6(View v){
+        simulateBeacon("4f33447a5962");
+    }
+
+    @OnClick(R.id.simulate_beacon_7)
+    public void sim7(View v){
+        simulateBeacon("376c7166774d");
+    }
+
+    @OnClick(R.id.simulate_beacon_8)
+    public void sim8(View v){
+        simulateBeacon("4d646948466f");
+    }
+
+    @OnClick(R.id.simulate_beacon_9)
+    public void sim9(View v){
+        simulateBeacon("484b334d7374");
+    }
+
+    @OnClick(R.id.simulate_beacon_10)
+    public void sim10(View v){
+        simulateBeacon("7258764e7837");
+    }
+
+    @OnClick(R.id.simulate_beacon_11)
+    public void sim11(View v){
+        simulateBeacon("6b4b444e6d74");
+    }
+
+    @OnClick(R.id.simulate_beacon_12)
+    public void sim12(View v){
+        simulateBeacon("4a3872777255");
+    }
+
+    @OnClick(R.id.simulate_beacon_13)
+    public void sim13(View v){
+        simulateBeacon("6f6947723331");
+    }
+    @OnClick(R.id.simulate_beacon_14)
+    public void sim14(View v){
+        simulateBeacon("37724f654f37");
+    }
+    @OnClick(R.id.simulate_beacon_15)
+    public void sim15(View v){
+        simulateBeacon("41566e447366");
+    }
+
     HiddenSharedPreferences hiddenSharedPreferences;
     HiddenGoogleMap hiddenGoogleMap;
 
@@ -111,6 +157,7 @@ public class NavigationActivity extends AppCompatActivity {
 
     public static void goThere(Context context){
         Intent intent = new Intent(context, NavigationActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
@@ -128,6 +175,16 @@ public class NavigationActivity extends AppCompatActivity {
         menuItem.setColorNormal(Color.parseColor("#4f000000"));
         menuItem.setColorPressed(Color.parseColor("#4f000000"));
         menuItem.setImageDrawable(getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha));
+
+        EddystoneBeaconManager eddystoneBeaconManager = new EddystoneBeaconManager(this);
+
+        eddystoneBeaconManager.startMonitoring(new ObservableBeacon() {
+            @Override
+            public void onBeaconInitialized(Observable<BeaconEvent> observable) {
+                observable.subscribe(onNext);
+            }
+        });
+
 
         String backendEndpoint = getResources().getString(R.string.backend_endpoint);
         onNext = new BeaconAction(this).get();
@@ -150,7 +207,6 @@ public class NavigationActivity extends AppCompatActivity {
         GoogleMap();
 
         hiddenSharedPreferences = new HiddenSharedPreferences(NavigationActivity.this);
-        eddystoneBeaconManager = new EddystoneBeaconManager(this);
 
         final PlaceEntityAdapter placeEntityAdapter = new PlaceEntityAdapter(this);
 
@@ -164,9 +220,18 @@ public class NavigationActivity extends AppCompatActivity {
 
                 @Override
                 public void success(List<BeaconizedMarker> beaconizedMarkers, Response response) {
-                    final List<PlacesEntity> placesEntities = placeEntityAdapter.persistAll(beaconizedMarkers);
-                    hiddenSharedPreferences.setPlacesDownloaded(true);
-                    callForActiveBeacon(placeEntityAdapter);
+                    try {
+                        final List<PlacesEntity> placesEntities = placeEntityAdapter.persistAll(beaconizedMarkers);
+                        hiddenSharedPreferences.setPlacesDownloaded(true);
+                        callForActiveBeacon(placeEntityAdapter);
+                    } catch (Exception e) {
+                        hiddenSharedPreferences.clearDataProperties();
+                        final PlaceEntityAdapter placeEntityAdapter = new PlaceEntityAdapter(NavigationActivity.this);
+                        placeEntityAdapter.clearDB();
+                        Intent intent = new Intent(NavigationActivity.this, MainMenuActivity.class);
+                        NavigationActivity.this.startActivity(intent);
+                        Toast.makeText(NavigationActivity.this, "Wystąpił problem. Dołącz jeszcze raz", Toast.LENGTH_LONG).show();
+                    }
                 }
 
                 @Override
@@ -200,7 +265,7 @@ public class NavigationActivity extends AppCompatActivity {
         GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
         hiddenGoogleMap = new HiddenGoogleMap(this, map);
-        hiddenGoogleMap.setInfoWindowAdapter(new HiddenInfoAdapter(this));
+//        hiddenGoogleMap.setInfoWindowAdapter(new HiddenInfoAdapter(this));
     }
 
 

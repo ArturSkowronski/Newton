@@ -9,6 +9,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -17,6 +18,7 @@ import com.hiddencity.games.db.table.PlacesEntity;
 import com.hiddencity.games.rest.BeaconizedMarker;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,42 +44,78 @@ public class HiddenGoogleMap {
 
     private void drawMarkers(List<PlacesEntity> placesEntities) {
         googleMap.clear();
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-
+        final LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        final LatLngBounds.Builder allBuilder = new LatLngBounds.Builder();
+        boolean flag = true;
+        final List<LatLng> positions = new ArrayList<>();
+        final List<LatLng> allPositions = new ArrayList<>();
         for (PlacesEntity place : placesEntities) {
 
             if(place.isActive()) {
 
                 MarkerOptions markerOption = new MarkerOptions()
                         .position(new LatLng(place.getLat(), place.getLng()))
-                        .title("Następne zadanie")
-                        .icon(hiddenMarkersModel.activeBeacon())
-                        .snippet("Poznaj przeznaczenie");
-
+//                        .title("Następne zadanie")
+//                        .snippet("Poznaj przeznaczenie")
+                        .icon(hiddenMarkersModel.activeBeacon());
+                flag = false;
                 googleMap.addMarker(markerOption);
-                builder.include(markerOption.getPosition());
+                positions.add(markerOption.getPosition());
+
             }
 
-            if(place.isShowed()) {
+            if(flag) {
 
                 MarkerOptions markerOption = new MarkerOptions()
                         .position(new LatLng(place.getLat(), place.getLng()))
-                        .title(place.getBeacon().getTitle())
-                        .icon(hiddenMarkersModel.showedBeacon())
-                        .snippet(place.getBeacon().getContent());
-
+//                        .title(place.getBeacon().getTitle())
+//                        .snippet(place.getBeacon().getContent())
+//                        .icon(hiddenMarkersModel.showedBeacon());
+                .icon(markerIcon(place.getBeacon().getImageUrl()));
                 googleMap.addMarker(markerOption);
-                builder.include(markerOption.getPosition());
+                positions.add(markerOption.getPosition());
             }
-
+            allPositions.add(new LatLng(place.getLat(), place.getLng()));
         }
 
-        if(hiddenMarkersModel.size()>0) {
-            LatLngBounds bounds = builder.build();
-            int padding = 100; // offset from edges of the map in pixels
-            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
-            googleMap.animateCamera(cu);
-        }
+        if(positions.size()>1) {
+            for(LatLng latLng : positions){
+                builder.include(latLng);
+            }
+            googleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+
+                @Override
+                public void onCameraChange(CameraPosition arg0) {
+                    LatLngBounds bounds = builder.build();
+                    int boundsAdd = 0;
+                    CameraUpdate update = CameraUpdateFactory.newLatLngBounds(bounds, 100 + boundsAdd);
+                    googleMap.moveCamera(update);
+
+                    // Remove listener to prevent position reset on camera move.
+                    googleMap.setOnCameraChangeListener(null);
+                }
+            });
+
+        } else {
+            if(allPositions.size()>0) {
+
+                for(LatLng latLng : allPositions){
+                    allBuilder.include(latLng);
+                }
+            googleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+
+                @Override
+                public void onCameraChange(CameraPosition arg0) {
+                    LatLngBounds bounds = allBuilder.build();
+                    int boundsAdd = 0;
+                    CameraUpdate update = CameraUpdateFactory.newLatLngBounds(bounds, 10);
+                    googleMap.moveCamera(update);
+
+                    // Remove listener to prevent position reset on camera move.
+                    googleMap.setOnCameraChangeListener(null);
+                }
+            });
+        }}
     }
 
 
@@ -87,7 +125,7 @@ public class HiddenGoogleMap {
             Picasso.with(context).load(image_url).into(imageView);
             return BitmapDescriptorFactory.fromBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap());
         }
-        return BitmapDescriptorFactory.fromResource(R.drawable.placeholder);
+        return hiddenMarkersModel.showedBeacon();
     }
 
     public void setInfoWindowAdapter(HiddenInfoAdapter infoWindowAdapter) {

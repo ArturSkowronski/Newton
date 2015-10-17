@@ -2,6 +2,7 @@ package com.hiddencity.games.gcm.listeners;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.hiddencity.games.HiddenSharedPreferences;
 import com.hiddencity.games.rest.uri.AchievementURL;
@@ -22,7 +23,11 @@ public class AchievmentsMessage implements GCMProcessor {
 
     @Override
     public void process(String from, Bundle data) {
+
         String message = data.getString("status");
+
+        Log.i("GCM MSG", "Message Received " + message);
+
         if(message.equals("next")) {
             HiddenSharedPreferences hiddenSharedPreferences = new HiddenSharedPreferences(context);
             AchievmentWebViewActivity.goThere(context, new AchievementURL(hiddenSharedPreferences.getPlayerId()).getUrl());
