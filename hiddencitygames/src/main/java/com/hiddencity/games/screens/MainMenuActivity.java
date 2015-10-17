@@ -7,14 +7,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringListener;
 import com.facebook.rebound.SpringSystem;
+import com.hiddencity.games.HiddenSharedPreferences;
 import com.hiddencity.games.R;
+import com.hiddencity.games.adapters.PlaceEntityAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -69,22 +76,38 @@ public class MainMenuActivity extends AppCompatActivity implements SpringListene
                     mMovedUp = !mMovedUp;
 
                 }
-            }, 2000);
+            }, 2500);
         }
     };
+
+    public void logout(){
+        new HiddenSharedPreferences(this).clearAllProperties();
+        final PlaceEntityAdapter placeEntityAdapter = new PlaceEntityAdapter(MainMenuActivity.this);
+        placeEntityAdapter.clearDB();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_board);
         ButterKnife.bind(this);
+        logout();
+
+
         mSpringSystem = SpringSystem.create();
         mSpring = mSpringSystem.createSpring();
         mSpring.addListener(this);
         SpringConfig config = new SpringConfig(TENSION, DAMPER);
         mSpring.setEndValue(700f);
         mSpring.setSpringConfig(config);
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new DecelerateInterpolator());
+        fadeIn.setStartOffset(500);
+        fadeIn.setDuration(2000);
 
+        AnimationSet animation = new AnimationSet(false); //change to false
+        animation.addAnimation(fadeIn);
+        conradLogo.setAnimation(animation);
         runOnUiThread(action);
 
     }
