@@ -18,7 +18,6 @@ import com.hiddencity.games.audio.AudioJsInterface;
 import com.hiddencity.games.rest.ActiveBeaconResponse;
 import com.hiddencity.games.rest.calls.ActiveBeaconCall;
 
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import retrofit.Callback;
