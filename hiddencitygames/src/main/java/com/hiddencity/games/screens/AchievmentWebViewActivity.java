@@ -69,7 +69,7 @@ public class AchievmentWebViewActivity extends Activity {
 
     @Override
     protected void onPause() {
-        js.stop();
+        js.pauseByDevice();
         super.onPause();
     }
 
@@ -77,6 +77,12 @@ public class AchievmentWebViewActivity extends Activity {
     protected void onDestroy() {
         js.stop();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        js.resume();
+        super.onResume();
     }
 
     @Override

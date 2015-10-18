@@ -5,15 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import com.crashlytics.android.Crashlytics;
-import com.hiddencity.games.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import com.crashlytics.android.Crashlytics;
+import com.hiddencity.games.Log;
 import com.hiddencity.games.R;
 import com.hiddencity.games.audio.AudioJsInterface;
 import com.hiddencity.games.rest.uri.HiddenURL;
@@ -69,15 +68,21 @@ public class OnboardWebViewActivity extends Activity {
 
     @Override
     protected void onPause() {
-        js.stop();
+        js.pauseByDevice();
         super.onPause();
     }
-
     @Override
     protected void onDestroy() {
         js.stop();
         super.onDestroy();
     }
+
+    @Override
+    protected void onResume() {
+        js.resume();
+        super.onDestroy();
+    }
+
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {

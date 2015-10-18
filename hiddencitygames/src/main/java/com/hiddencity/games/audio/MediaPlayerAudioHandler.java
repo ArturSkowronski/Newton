@@ -15,6 +15,9 @@ public class MediaPlayerAudioHandler extends AudioHandler implements OnCompletio
     private boolean isRecording = false;
     MediaPlayer mPlayer;
     private boolean isPlaying = false;
+    private boolean isReliced = true;
+    private boolean isPausedByDevice = false;
+
     private final Handler handler = new Handler();
 
     public MediaPlayerAudioHandler(AudioCallback iAudio){
@@ -50,22 +53,37 @@ public class MediaPlayerAudioHandler extends AudioHandler implements OnCompletio
 
     @Override
     public void play() {
-        if(! isPlaying ){
-
-         this.mPlayer.start();
+        if(! isPlaying &&   this.mPlayer!= null && !isReliced  ){
+            this.mPlayer.start();
             isPlaying = true;
+            isPausedByDevice= false;
             startPlayProgressUpdater();
         }
 
     }
     @Override
+    public void resume() {
+        if(isPausedByDevice){
+            play();
+        }
+
+    }
+
+    @Override
     public void pause() {
         if(isPlaying ){
-
          this.mPlayer.pause();
             isPlaying= false;
         }
 
+    }
+
+  @Override
+    public void pauseByDevice() {
+        if(isPlaying ){
+            isPausedByDevice= true;
+            this.pause();
+        }
     }
 
     public void stop() {
@@ -73,12 +91,13 @@ public class MediaPlayerAudioHandler extends AudioHandler implements OnCompletio
             mPlayer.stop();
             mPlayer.release();
             isPlaying=false;
+            isReliced= true;
+            isPausedByDevice= false;
         }
     }
 
     public void onCompletion(MediaPlayer mPlayer) {
         mPlayer.stop();
-        mPlayer.release();
         callback.onFinished();
         isPlaying=false;
     }
@@ -126,6 +145,7 @@ public class MediaPlayerAudioHandler extends AudioHandler implements OnCompletio
 
     public void onPrepared(MediaPlayer mPlayer) {
         if (isPlaying) {
+            isReliced= false;
             mPlayer.setOnCompletionListener(this);
             mPlayer.setOnBufferingUpdateListener(new OnBufferingUpdateListener() {
                 public void onBufferingUpdate(MediaPlayer mPlayer, int percent) {
@@ -134,8 +154,10 @@ public class MediaPlayerAudioHandler extends AudioHandler implements OnCompletio
                 }
             });
             callback.onStart(mPlayer.getDuration());
-            mPlayer.start();
-            startPlayProgressUpdater();
+            if(!isPausedByDevice) {
+                mPlayer.start();
+                startPlayProgressUpdater();
+            }
         }
     }
 

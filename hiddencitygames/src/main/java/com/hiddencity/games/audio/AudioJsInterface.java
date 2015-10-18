@@ -36,11 +36,20 @@ public class AudioJsInterface implements AudioCallback {
     public void play() {
         audiHandler.play();
     }
+
     @JavascriptInterface
     public void pause() {
         audiHandler.pause();
     }
 
+
+    public void resume()
+    { audiHandler.resume();
+    }
+
+    public void pauseByDevice() {
+        audiHandler.pauseByDevice();
+    }
     @Override
     public void onStart(long duration) {
        callWebView("onStart('" + duration + "');");

@@ -4,13 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import com.hiddencity.games.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import com.hiddencity.games.Log;
 import com.hiddencity.games.R;
 import com.hiddencity.games.audio.AudioJsInterface;
 
@@ -63,7 +63,7 @@ public class ContentWebViewActivity extends Activity {
 
     @Override
     protected void onPause() {
-        js.stop();
+        js.pauseByDevice();
         super.onPause();
     }
 
@@ -71,6 +71,12 @@ public class ContentWebViewActivity extends Activity {
     protected void onDestroy() {
         js.stop();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        js.resume();
+        super.onResume();
     }
 
     @Override

@@ -11,7 +11,11 @@ public interface AudioInterface {
 
     public void play();
 
+    public void resume();
+
     public void pause();
+
+    public void pauseByDevice();
 
     public long getCurrentPosition();
 
