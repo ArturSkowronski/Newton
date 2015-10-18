@@ -58,13 +58,14 @@ public class PlaceEntityAdapter {
         realm.beginTransaction();
         List<PlacesEntity> all = findAll();
         for (PlacesEntity placesEntity : all) {
-            if(activeBeaconResponse.get_id().equals(placesEntity.getId())){
+            if(activeBeaconResponse!=null && activeBeaconResponse.get_id()!=null && placesEntity.getId().equals(activeBeaconResponse.get_id())){
                 placesEntity.setActive(true);
             } else {
-                placesEntity.setActive(false);
                 if(placesEntity.isActive()){
                     placesEntity.setShowed(true);
                 }
+                placesEntity.setActive(false);
+
             }
         }
         realm.commitTransaction();
@@ -91,7 +92,8 @@ public class PlaceEntityAdapter {
             placeEntity.setLat(beaconizedMarker.getLocation().getLat());
             placeEntity.setLng(beaconizedMarker.getLocation().getLong());
             beaconEntity.setTitle(beaconizedMarker.getTitle());
-            String image_url = beaconizedMarker.getImage_url() == null ? "" : beaconizedMarker.getImage_url();
+            String image_url = "";
+            if(beaconizedMarker.getInfo() != null && beaconizedMarker.getInfo().getIcon()!=null) image_url = beaconizedMarker.getInfo().getIcon();
             beaconEntity.setImageUrl(image_url);
             beaconEntity.setPlaceId(beaconizedMarker.get_id());
             beaconEntity.setContent(beaconizedMarker.get_id());

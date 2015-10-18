@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hiddencity.games.R;
 import com.hiddencity.games.db.table.PlacesEntity;
+import com.hiddencity.games.rest.ActiveBeaconResponse;
 import com.hiddencity.games.rest.BeaconizedMarker;
 import com.squareup.picasso.Picasso;
 
@@ -46,7 +47,6 @@ public class HiddenGoogleMap {
         googleMap.clear();
         final LatLngBounds.Builder builder = new LatLngBounds.Builder();
         final LatLngBounds.Builder allBuilder = new LatLngBounds.Builder();
-        boolean flag = true;
         final List<LatLng> positions = new ArrayList<>();
         final List<LatLng> allPositions = new ArrayList<>();
         for (PlacesEntity place : placesEntities) {
@@ -58,13 +58,12 @@ public class HiddenGoogleMap {
 //                        .title("Następne zadanie")
 //                        .snippet("Poznaj przeznaczenie")
                         .icon(hiddenMarkersModel.activeBeacon());
-                flag = false;
                 googleMap.addMarker(markerOption);
                 positions.add(markerOption.getPosition());
 
             }
 
-            if(flag) {
+            if(place.isShowed()) {
 
                 MarkerOptions markerOption = new MarkerOptions()
                         .position(new LatLng(place.getLat(), place.getLng()))
@@ -120,10 +119,11 @@ public class HiddenGoogleMap {
 
 
     private BitmapDescriptor markerIcon(String image_url) {
+        String backend = context.getResources().getString(R.string.backend_endpoint);
         if(image_url!=null && !"".equals(image_url)) {
             ImageView imageView = new ImageView(context);
-            Picasso.with(context).load(image_url).into(imageView);
-            return BitmapDescriptorFactory.fromBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap());
+            Picasso.with(context).load(backend+ image_url).into(imageView);
+            if((imageView.getDrawable())!=null) return BitmapDescriptorFactory.fromBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap());
         }
         return hiddenMarkersModel.showedBeacon();
     }

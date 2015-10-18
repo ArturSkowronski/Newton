@@ -5,13 +5,12 @@ package com.hiddencity.games.gcm;
  */
 
 import android.os.Bundle;
-import android.util.Log;
+import com.hiddencity.games.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
 import com.hiddencity.games.gcm.listeners.ResultMessage;
 import com.hiddencity.games.gcm.listeners.GCMProcessor;
 import com.hiddencity.games.gcm.listeners.AchievmentsMessage;
-import com.hiddencity.games.gcm.listeners.ResyncMapMessage;
 
 import java.util.ArrayList;
 import java.util.List;

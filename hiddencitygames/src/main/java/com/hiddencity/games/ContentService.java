@@ -3,8 +3,6 @@ package com.hiddencity.games;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.hiddencity.newton.domain.BeaconEvent;
 import com.hiddencity.newton.eddystone.EddystoneBeaconManager;

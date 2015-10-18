@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hiddencity.games.HiddenSharedPreferences;
 import com.hiddencity.games.R;
@@ -48,11 +49,13 @@ public class PlayerScreen extends AppCompatActivity {
     }
 
     private void joinGameRequest() {
-
-        TeamJoinRequest teamJoinRequest = creteTeamJoinRequest();
-        Callback<TeamJoinResponse> callback = TeamJoinResponse.callbackResponse(this);
-
-        joinTeamRestEndpoint.joinTeam(teamJoinRequest, callback);
+        if("".equals(joinGameInput.getText().toString())){
+            Toast.makeText(PlayerScreen.this, "Nie wprowadzono kodu", Toast.LENGTH_SHORT).show();
+        } else {
+            TeamJoinRequest teamJoinRequest = creteTeamJoinRequest();
+            Callback<TeamJoinResponse> callback = TeamJoinResponse.callbackResponse(this);
+            joinTeamRestEndpoint.joinTeam(teamJoinRequest, callback);
+        }
     }
 
     private TeamJoinRequest creteTeamJoinRequest() {

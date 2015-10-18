@@ -1,7 +1,6 @@
 package com.hiddencity.games;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.hiddencity.games.adapters.BeaconEntityAdapter;
 import com.hiddencity.games.adapters.PlaceEntityAdapter;

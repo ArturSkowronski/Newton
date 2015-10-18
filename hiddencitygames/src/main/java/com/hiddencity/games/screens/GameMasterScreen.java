@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,10 @@ public class GameMasterScreen extends AppCompatActivity {
     @Bind(R.id.gameCode)
     TextView gameCode;
 
+    @Bind(R.id.joinGame)
+    Button joinGame;
+
+
     @OnClick(R.id.joinGame)
     public void joinGameSubmit(View view) {
         Onboarding onboarding = new Onboarding(GameMasterScreen.this);
@@ -49,9 +54,9 @@ public class GameMasterScreen extends AppCompatActivity {
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setLog(new AndroidLog(TAG))
                 .build().create(RegisterTeamCall.class);
-
         setContentView(R.layout.activity_game_master_screen);
         ButterKnife.bind(this);
+        joinGame.setEnabled(false);
 
         final HiddenSharedPreferences hiddenSharedPreferences = new HiddenSharedPreferences(this);
 
@@ -67,6 +72,7 @@ public class GameMasterScreen extends AppCompatActivity {
                     String registrationCode = teamRegistrationResponse.getRegistrationCode();
 
                     hiddenSharedPreferences.setCode(registrationCode);
+                    joinGame.setEnabled(true);
 
                     gameCode.setText(registrationCode);
                     hiddenSharedPreferences.setPlayerId(teamRegistrationResponse.getPlayerId());

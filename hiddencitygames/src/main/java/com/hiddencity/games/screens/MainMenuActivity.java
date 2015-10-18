@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringListener;
@@ -26,6 +27,7 @@ import com.hiddencity.games.adapters.PlaceEntityAdapter;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.fabric.sdk.android.Fabric;
 
 
 public class MainMenuActivity extends AppCompatActivity implements SpringListener {
@@ -104,6 +106,7 @@ public class MainMenuActivity extends AppCompatActivity implements SpringListene
         ButterKnife.bind(this);
         logout();
 
+        Fabric.with(this, new Crashlytics());
 
         mSpringSystem = SpringSystem.create();
         mSpring = mSpringSystem.createSpring();

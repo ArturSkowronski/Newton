@@ -16,6 +16,6 @@
         android:adjustViewBounds="true"
         android:id="@+id/imageView"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/conrad_logo" />
+        android:src="@drawable/conrad_logo_2" />
 
 </RelativeLayout>

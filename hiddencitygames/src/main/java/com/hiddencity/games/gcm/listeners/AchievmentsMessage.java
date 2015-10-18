@@ -2,13 +2,11 @@ package com.hiddencity.games.gcm.listeners;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
+import com.hiddencity.games.Log;
 
 import com.hiddencity.games.HiddenSharedPreferences;
 import com.hiddencity.games.rest.uri.AchievementURL;
 import com.hiddencity.games.screens.AchievmentWebViewActivity;
-import com.hiddencity.games.screens.NavigationActivity;
-import com.hiddencity.games.screens.WebViewButtonedActivity;
 
 /**
  * Created by arturskowronski on 20/09/15.

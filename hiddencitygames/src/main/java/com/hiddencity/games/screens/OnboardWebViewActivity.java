@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
+
+import com.crashlytics.android.Crashlytics;
+import com.hiddencity.games.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,6 +21,7 @@ import com.hiddencity.games.screens.interceptors.OnboardInterceptor;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.fabric.sdk.android.Fabric;
 
 public class OnboardWebViewActivity extends Activity {
 
@@ -30,11 +33,12 @@ public class OnboardWebViewActivity extends Activity {
         Intent intent = new Intent(context, OnboardWebViewActivity.class);
         intent.putExtra("url", url.getUrl());
         context.startActivity(intent);
-    };
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);

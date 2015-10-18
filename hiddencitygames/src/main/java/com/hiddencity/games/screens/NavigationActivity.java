@@ -6,29 +6,26 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.hiddencity.games.BeaconAction;
-import com.hiddencity.games.ContentService;
 import com.hiddencity.games.HiddenSharedPreferences;
 import com.hiddencity.games.R;
+import com.hiddencity.games.Log;
 import com.hiddencity.games.adapters.PlaceEntityAdapter;
 import com.hiddencity.games.db.table.PlacesEntity;
 import com.hiddencity.games.map.HiddenGoogleMap;
-import com.hiddencity.games.map.HiddenInfoAdapter;
 import com.hiddencity.games.rest.ActiveBeaconResponse;
 import com.hiddencity.games.rest.BeaconizedMarker;
 import com.hiddencity.games.rest.calls.ActiveBeaconCall;
 import com.hiddencity.games.rest.calls.PlacesCall;
-import com.hiddencity.games.rest.uri.AchievementURL;
-import com.hiddencity.games.rest.uri.ResultURL;
 import com.hiddencity.newton.domain.BeaconEvent;
 import com.hiddencity.newton.domain.ContentID;
 import com.hiddencity.newton.eddystone.EddystoneBeaconManager;
@@ -40,6 +37,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.fabric.sdk.android.Fabric;
+import io.realm.Realm;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -51,7 +50,7 @@ import rx.functions.Action1;
 
 public class NavigationActivity extends AppCompatActivity {
 
-    private String TAG = "NavigationActivity";
+        private String TAG = "NavigationActivity";
     Action1<BeaconEvent> onNext;
 
 
@@ -172,6 +171,8 @@ public class NavigationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         ButterKnife.bind(this);
+        Fabric.with(this, new Crashlytics());
+
         menuItem.setColorNormal(Color.parseColor("#4f000000"));
         menuItem.setColorPressed(Color.parseColor("#4f000000"));
         menuItem.setImageDrawable(getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha));
@@ -225,12 +226,15 @@ public class NavigationActivity extends AppCompatActivity {
                         hiddenSharedPreferences.setPlacesDownloaded(true);
                         callForActiveBeacon(placeEntityAdapter);
                     } catch (Exception e) {
+                        Realm realm = Realm.getInstance(NavigationActivity.this);
+                        realm.commitTransaction();
+
                         hiddenSharedPreferences.clearDataProperties();
-                        final PlaceEntityAdapter placeEntityAdapter = new PlaceEntityAdapter(NavigationActivity.this);
-                        placeEntityAdapter.clearDB();
+
                         Intent intent = new Intent(NavigationActivity.this, MainMenuActivity.class);
                         NavigationActivity.this.startActivity(intent);
-                        Toast.makeText(NavigationActivity.this, "Wystąpił problem. Dołącz jeszcze raz", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "EXCEPTION: " + e.getMessage());
+                        Toast.makeText(NavigationActivity.this, "Wystąpił problem. Dołącz jeszcze raz: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
 

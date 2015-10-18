@@ -17,6 +17,7 @@ public class BeaconizedMarker {
      */
     private String beacon;
     private LocationEntity location;
+    private InfoEntity info;
     private String _id;
     private String title;
     private String content;
@@ -89,6 +90,14 @@ public class BeaconizedMarker {
         this.showed = showed;
     }
 
+    public InfoEntity getInfo() {
+        return info;
+    }
+
+    public void setInfo(InfoEntity info) {
+        this.info = info;
+    }
+
     public class LocationEntity {
         /**
          * coordinates : ["50.04","19.57"]
@@ -121,6 +130,22 @@ public class BeaconizedMarker {
 
         public String getType() {
             return type;
+        }
+    }
+
+    public class InfoEntity {
+        /**
+         * coordinates : ["50.04","19.57"]
+         * type : Point
+         */
+        private String icon;
+
+        public String getIcon() {
+            return icon;
+        }
+
+        public void setIcon(String icon) {
+            this.icon = icon;
         }
     }
 

@@ -8,7 +8,7 @@ import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.media.MediaRecorder;
 import android.os.Handler;
-import android.util.Log;
+import com.hiddencity.games.Log;
 
 public class MediaPlayerAudioHandler extends AudioHandler implements OnCompletionListener, OnPreparedListener, OnErrorListener {
     private MediaRecorder recorder;

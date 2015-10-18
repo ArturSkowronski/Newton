@@ -3,7 +3,6 @@ package com.hiddencity.games;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 /**
  * Created by arturskowronski on 27/06/15.
