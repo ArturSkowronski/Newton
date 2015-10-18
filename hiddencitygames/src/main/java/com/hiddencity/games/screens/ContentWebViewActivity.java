@@ -4,18 +4,28 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import com.hiddencity.games.HiddenSharedPreferences;
+import com.hiddencity.games.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.Toast;
 
-import com.hiddencity.games.Log;
 import com.hiddencity.games.R;
 import com.hiddencity.games.audio.AudioJsInterface;
+import com.hiddencity.games.rest.ActiveBeaconResponse;
+import com.hiddencity.games.rest.calls.ActiveBeaconCall;
+
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.android.AndroidLog;
+import retrofit.client.Response;
 
 public class ContentWebViewActivity extends Activity {
 
@@ -23,11 +33,46 @@ public class ContentWebViewActivity extends Activity {
     WebView mWebView;
 
     private  AudioJsInterface js;
+    String TAG = "";
 
-    public static final void goThere(Context context, String url){
+    public static void goThere(Context context, String url){
         Intent intent = new Intent(context, ContentWebViewActivity.class);
         intent.putExtra("url", url);
         context.startActivity(intent);
+    }
+
+    private void callForActiveBeacon(final String url) {
+        ActiveBeaconCall activeBeacon;
+        String backendEndpoint = getResources().getString(R.string.backend_endpoint);
+
+        HiddenSharedPreferences hiddenSharedPreferences = new HiddenSharedPreferences(ContentWebViewActivity.this);
+
+        activeBeacon = new RestAdapter.Builder()
+                .setEndpoint(backendEndpoint)
+                .setLog(new AndroidLog(TAG))
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .build()
+                .create(ActiveBeaconCall.class);
+
+        activeBeacon.getActiveBeacon(hiddenSharedPreferences.getPlayerId(), new Callback<ActiveBeaconResponse>() {
+            @Override
+            public void success(ActiveBeaconResponse activeBeaconResponse, Response response) {
+
+                mWebView.loadUrl(url);
+                WebSettings webSettings = mWebView.getSettings();
+                webSettings.setJavaScriptEnabled(true);
+                mWebView.setVerticalScrollBarEnabled(false);
+                mWebView.setHorizontalScrollBarEnabled(false);
+                js = new AudioJsInterface(ContentWebViewActivity.this, mWebView);
+                mWebView.addJavascriptInterface(js, "AndroidAudio");
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(ContentWebViewActivity.this, "To zadanie już zostało wykonane", Toast.LENGTH_SHORT).show();
+                NavigationActivity.goThere(ContentWebViewActivity.this);
+            }
+        });
     }
 
     @Override
@@ -51,14 +96,8 @@ public class ContentWebViewActivity extends Activity {
         String url = backendEndpoint + b.getString("url");
 
         Log.i("url", url);
-        mWebView.loadUrl(url);
-        WebSettings webSettings = mWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        mWebView.setVerticalScrollBarEnabled(false);
-        mWebView.setHorizontalScrollBarEnabled(false);
-        js = new AudioJsInterface(this, mWebView);
-        mWebView.addJavascriptInterface(js, "AndroidAudio");
 
+        callForActiveBeacon(url);
     }
 
     @Override
