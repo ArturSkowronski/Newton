@@ -50,7 +50,7 @@ import rx.functions.Action1;
 
 public class NavigationActivity extends AppCompatActivity {
 
-        private String TAG = "NavigationActivity";
+    private String TAG = "NavigationActivity";
     Action1<BeaconEvent> onNext;
 
 
@@ -65,7 +65,7 @@ public class NavigationActivity extends AppCompatActivity {
     FloatingActionButton menuItem;
 
     @OnClick(R.id.menu_item)
-    public void logout(View v){
+    public void logout(View v) {
         hiddenSharedPreferences.clearAllProperties();
         final PlaceEntityAdapter placeEntityAdapter = new PlaceEntityAdapter(NavigationActivity.this);
         placeEntityAdapter.clearDB();
@@ -76,75 +76,77 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.simulate_beacon_1)
-    public void sim1(View v){
+    public void sim1(View v) {
         simulateBeacon("434c776a544a");
     }
 
     @OnClick(R.id.simulate_beacon_2)
-    public void sim2(View v){
+    public void sim2(View v) {
         simulateBeacon("423067396a55");
     }
 
     @OnClick(R.id.simulate_beacon_3)
-    public void sim3(View v){
+    public void sim3(View v) {
         simulateBeacon("69506c446155");
     }
 
     @OnClick(R.id.simulate_beacon_4)
-    public void sim4(View v){
+    public void sim4(View v) {
         simulateBeacon("46343159444d");
     }
 
     @OnClick(R.id.simulate_beacon_5)
-    public void sim5(View v){
+    public void sim5(View v) {
         simulateBeacon("6d6c6c6d5343");
     }
 
     @OnClick(R.id.simulate_beacon_6)
-    public void sim6(View v){
+    public void sim6(View v) {
         simulateBeacon("4f33447a5962");
     }
 
     @OnClick(R.id.simulate_beacon_7)
-    public void sim7(View v){
+    public void sim7(View v) {
         simulateBeacon("376c7166774d");
     }
 
     @OnClick(R.id.simulate_beacon_8)
-    public void sim8(View v){
+    public void sim8(View v) {
         simulateBeacon("4d646948466f");
     }
 
     @OnClick(R.id.simulate_beacon_9)
-    public void sim9(View v){
+    public void sim9(View v) {
         simulateBeacon("484b334d7374");
     }
 
     @OnClick(R.id.simulate_beacon_10)
-    public void sim10(View v){
+    public void sim10(View v) {
         simulateBeacon("7258764e7837");
     }
 
     @OnClick(R.id.simulate_beacon_11)
-    public void sim11(View v){
+    public void sim11(View v) {
         simulateBeacon("6b4b444e6d74");
     }
 
     @OnClick(R.id.simulate_beacon_12)
-    public void sim12(View v){
+    public void sim12(View v) {
         simulateBeacon("4a3872777255");
     }
 
     @OnClick(R.id.simulate_beacon_13)
-    public void sim13(View v){
+    public void sim13(View v) {
         simulateBeacon("6f6947723331");
     }
+
     @OnClick(R.id.simulate_beacon_14)
-    public void sim14(View v){
+    public void sim14(View v) {
         simulateBeacon("37724f654f37");
     }
+
     @OnClick(R.id.simulate_beacon_15)
-    public void sim15(View v){
+    public void sim15(View v) {
         simulateBeacon("41566e447366");
     }
 
@@ -154,13 +156,13 @@ public class NavigationActivity extends AppCompatActivity {
     PlacesCall places;
     ActiveBeaconCall activeBeacon;
 
-    public static void goThere(Context context){
+    public static void goThere(Context context) {
         Intent intent = new Intent(context, NavigationActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
-    public static void goThere(Context context, boolean resync){
+    public static void goThere(Context context, boolean resync) {
         Intent intent = new Intent(context, NavigationActivity.class);
         intent.putExtra("resync", resync);
         context.startActivity(intent);
@@ -182,10 +184,9 @@ public class NavigationActivity extends AppCompatActivity {
         eddystoneBeaconManager.startMonitoring(new ObservableBeacon() {
             @Override
             public void onBeaconInitialized(Observable<BeaconEvent> observable) {
-                observable.subscribe(onNext);
+            observable.subscribe(onNext);
             }
         });
-
 
         String backendEndpoint = getResources().getString(R.string.backend_endpoint);
         onNext = new BeaconAction(this).get();
@@ -211,7 +212,7 @@ public class NavigationActivity extends AppCompatActivity {
 
         final PlaceEntityAdapter placeEntityAdapter = new PlaceEntityAdapter(this);
 
-        if(hiddenSharedPreferences.arePlacesDownloaded()){
+        if (hiddenSharedPreferences.arePlacesDownloaded()) {
             List<PlacesEntity> placesEntities = placeEntityAdapter.findAll();
             hiddenGoogleMap.addMarkers(placesEntities);
             callForActiveBeacon(placeEntityAdapter);
@@ -264,14 +265,11 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
 
-
     private void GoogleMap() {
         GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
         hiddenGoogleMap = new HiddenGoogleMap(this, map);
-//        hiddenGoogleMap.setInfoWindowAdapter(new HiddenInfoAdapter(this));
     }
-
 
 
     private void TranslucantStatusBar() {
@@ -279,7 +277,8 @@ public class NavigationActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS); w.setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            w.setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
         }
 
         SystemBarTintManager tintManager = new SystemBarTintManager(this);

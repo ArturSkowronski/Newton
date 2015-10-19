@@ -41,6 +41,7 @@ public class HiddenNotification {
 
         Intent intent = new Intent(context, ContentWebViewActivity.class);
         intent.putExtra("url", url);
+        intent.putExtra("contentId", contentId);
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 

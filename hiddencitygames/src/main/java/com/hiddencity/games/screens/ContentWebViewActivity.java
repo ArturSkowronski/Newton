@@ -40,7 +40,7 @@ public class ContentWebViewActivity extends Activity {
         context.startActivity(intent);
     }
 
-    private void callForActiveBeacon(final String url) {
+    private void callForActiveBeacon(final String url, final String contentId) {
         ActiveBeaconCall activeBeacon;
         String backendEndpoint = getResources().getString(R.string.backend_endpoint);
 
@@ -52,18 +52,22 @@ public class ContentWebViewActivity extends Activity {
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build()
                 .create(ActiveBeaconCall.class);
+        js = new AudioJsInterface(ContentWebViewActivity.this, mWebView);
 
         activeBeacon.getActiveBeacon(hiddenSharedPreferences.getPlayerId(), new Callback<ActiveBeaconResponse>() {
             @Override
             public void success(ActiveBeaconResponse activeBeaconResponse, Response response) {
-
-                mWebView.loadUrl(url);
-                WebSettings webSettings = mWebView.getSettings();
-                webSettings.setJavaScriptEnabled(true);
-                mWebView.setVerticalScrollBarEnabled(false);
-                mWebView.setHorizontalScrollBarEnabled(false);
-                js = new AudioJsInterface(ContentWebViewActivity.this, mWebView);
-                mWebView.addJavascriptInterface(js, "AndroidAudio");
+                if(contentId.equals(activeBeaconResponse.get_id())) {
+                    mWebView.loadUrl(url);
+                    WebSettings webSettings = mWebView.getSettings();
+                    webSettings.setJavaScriptEnabled(true);
+                    mWebView.setVerticalScrollBarEnabled(false);
+                    mWebView.setHorizontalScrollBarEnabled(false);
+                    mWebView.addJavascriptInterface(js, "AndroidAudio");
+                } else {
+                    Toast.makeText(ContentWebViewActivity.this, "To zadanie już zostało wykonane", Toast.LENGTH_SHORT).show();
+                    NavigationActivity.goThere(ContentWebViewActivity.this);
+                }
             }
 
             @Override
@@ -93,10 +97,10 @@ public class ContentWebViewActivity extends Activity {
         ButterKnife.bind(this);
         Bundle b = getIntent().getExtras();
         String url = backendEndpoint + b.getString("url");
-
+        String contentId = b.getString("contentId");
         Log.i("url", url);
 
-        callForActiveBeacon(url);
+        callForActiveBeacon(url, contentId);
     }
 
     @Override
