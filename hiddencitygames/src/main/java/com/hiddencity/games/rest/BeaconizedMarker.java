@@ -15,7 +15,7 @@ public class BeaconizedMarker {
      * title : asdsad,asd
      * tasks : [{"role":"55f5e778d022d5b46575c293","task":"55f5e87ed022d5b46575c297","_id":"55f5e896d022d5b46575c299"}]
      */
-    private String beacon;
+    private List<String> beacon;
     private LocationEntity location;
     private InfoEntity info;
     private String _id;
@@ -25,7 +25,7 @@ public class BeaconizedMarker {
     private boolean active = false;
     private boolean showed = false;
 
-    public void setBeacon(String beacon) {
+    public void setBeacon(List<String> beacon) {
         this.beacon = beacon;
     }
 
@@ -58,7 +58,7 @@ public class BeaconizedMarker {
         this.title = title;
     }
 
-    public String getBeacon() {
+    public List<String> getBeacon() {
         return beacon;
     }
 

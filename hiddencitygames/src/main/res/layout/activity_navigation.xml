@@ -19,7 +19,7 @@
         android:minHeight="?attr/actionBarSize"
         app:theme="@style/ThemeOverlay.AppCompat.ActionBar"></android.support.v7.widget.Toolbar>
 
-    <include layout="@layout/buttons" />
+    <!--<include layout="@layout/buttons" />-->
 
 
     <com.github.clans.fab.FloatingActionMenu
@@ -30,9 +30,9 @@
         android:layout_margin="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="30dp"
         android:paddingRight="10dp"
-        android:paddingTop="40dp"
+        android:paddingTop="30dp"
         fab:menu_animationDelayPerItem="50"
         fab:menu_backgroundColor="@android:color/transparent"
         fab:menu_buttonSpacing="0dp"
@@ -82,4 +82,5 @@
             fab:menu_colorRipple="#99FFFFFF" />
 
     </com.github.clans.fab.FloatingActionMenu>
+
 </FrameLayout>

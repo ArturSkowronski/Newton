@@ -1,7 +1,11 @@
 package com.hiddencity.games.screens;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +50,7 @@ public class PlayerScreen extends AppCompatActivity {
                 .create(JoinTeamCall.class);
         setContentView(R.layout.activity_player_screen);
         ButterKnife.bind(this);
+        joinGameInput.setTextColor(getResources().getColor(R.color.white));
     }
 
     private void joinGameRequest() {

@@ -74,81 +74,81 @@ public class NavigationActivity extends AppCompatActivity {
         Toast.makeText(NavigationActivity.this, "Zostałeś pomyślnie wylogowany", Toast.LENGTH_LONG).show();
 
     }
-
-    @OnClick(R.id.simulate_beacon_1)
-    public void sim1(View v) {
-        simulateBeacon("434c776a544a");
-    }
-
-    @OnClick(R.id.simulate_beacon_2)
-    public void sim2(View v) {
-        simulateBeacon("423067396a55");
-    }
-
-    @OnClick(R.id.simulate_beacon_3)
-    public void sim3(View v) {
-        simulateBeacon("69506c446155");
-    }
-
-    @OnClick(R.id.simulate_beacon_4)
-    public void sim4(View v) {
-        simulateBeacon("46343159444d");
-    }
-
-    @OnClick(R.id.simulate_beacon_5)
-    public void sim5(View v) {
-        simulateBeacon("6d6c6c6d5343");
-    }
-
-    @OnClick(R.id.simulate_beacon_6)
-    public void sim6(View v) {
-        simulateBeacon("4f33447a5962");
-    }
-
-    @OnClick(R.id.simulate_beacon_7)
-    public void sim7(View v) {
-        simulateBeacon("376c7166774d");
-    }
-
-    @OnClick(R.id.simulate_beacon_8)
-    public void sim8(View v) {
-        simulateBeacon("4d646948466f");
-    }
-
-    @OnClick(R.id.simulate_beacon_9)
-    public void sim9(View v) {
-        simulateBeacon("484b334d7374");
-    }
-
-    @OnClick(R.id.simulate_beacon_10)
-    public void sim10(View v) {
-        simulateBeacon("7258764e7837");
-    }
-
-    @OnClick(R.id.simulate_beacon_11)
-    public void sim11(View v) {
-        simulateBeacon("6b4b444e6d74");
-    }
-
-    @OnClick(R.id.simulate_beacon_12)
-    public void sim12(View v) {
-        simulateBeacon("4a3872777255");
-    }
-
-    @OnClick(R.id.simulate_beacon_13)
-    public void sim13(View v) {
-        simulateBeacon("6f6947723331");
-    }
-
-    @OnClick(R.id.simulate_beacon_14)
-    public void sim14(View v) {
-        simulateBeacon("37724f654f37");
-    }
-
-    @OnClick(R.id.simulate_beacon_15)
-    public void sim15(View v) {
-        simulateBeacon("41566e447366");
-    }
+//
+//    @OnClick(R.id.simulate_beacon_1)
+//    public void sim1(View v) {
+//        simulateBeacon("434c776a544a");
+//    }
+//
+//    @OnClick(R.id.simulate_beacon_2)
+//    public void sim2(View v) {
+//        simulateBeacon("423067396a55");
+//    }
+//
+//    @OnClick(R.id.simulate_beacon_3)
+//    public void sim3(View v) {
+//        simulateBeacon("69506c446155");
+//    }
+//
+//    @OnClick(R.id.simulate_beacon_4)
+//    public void sim4(View v) {
+//        simulateBeacon("46343159444d");
+//    }
+//
+//    @OnClick(R.id.simulate_beacon_5)
+//    public void sim5(View v) {
+//        simulateBeacon("6d6c6c6d5343");
+//    }
+//
+//    @OnClick(R.id.simulate_beacon_6)
+//    public void sim6(View v) {
+//        simulateBeacon("4f33447a5962");
+//    }
+//
+//    @OnClick(R.id.simulate_beacon_7)
+//    public void sim7(View v) {
+//        simulateBeacon("376c7166774d");
+//    }
+//
+//    @OnClick(R.id.simulate_beacon_8)
+//    public void sim8(View v) {
+//        simulateBeacon("4d646948466f");
+//    }
+//
+//    @OnClick(R.id.simulate_beacon_9)
+//    public void sim9(View v) {
+//        simulateBeacon("484b334d7374");
+//    }
+//
+//    @OnClick(R.id.simulate_beacon_10)
+//    public void sim10(View v) {
+//        simulateBeacon("7258764e7837");
+//    }
+//
+//    @OnClick(R.id.simulate_beacon_11)
+//    public void sim11(View v) {
+//        simulateBeacon("6b4b444e6d74");
+//    }
+//
+//    @OnClick(R.id.simulate_beacon_12)
+//    public void sim12(View v) {
+//        simulateBeacon("4a3872777255");
+//    }
+//
+//    @OnClick(R.id.simulate_beacon_13)
+//    public void sim13(View v) {
+//        simulateBeacon("6f6947723331");
+//    }
+//
+//    @OnClick(R.id.simulate_beacon_14)
+//    public void sim14(View v) {
+//        simulateBeacon("37724f654f37");
+//    }
+//
+//    @OnClick(R.id.simulate_beacon_15)
+//    public void sim15(View v) {
+//        simulateBeacon("41566e447366");
+//    }
 
     HiddenSharedPreferences hiddenSharedPreferences;
     HiddenGoogleMap hiddenGoogleMap;
@@ -178,6 +178,7 @@ public class NavigationActivity extends AppCompatActivity {
         menuItem.setColorNormal(Color.parseColor("#4f000000"));
         menuItem.setColorPressed(Color.parseColor("#4f000000"));
         menuItem.setImageDrawable(getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha));
+
 
         EddystoneBeaconManager eddystoneBeaconManager = new EddystoneBeaconManager(this);
 
@@ -223,7 +224,7 @@ public class NavigationActivity extends AppCompatActivity {
                 @Override
                 public void success(List<BeaconizedMarker> beaconizedMarkers, Response response) {
                     try {
-                        final List<PlacesEntity> placesEntities = placeEntityAdapter.persistAll(beaconizedMarkers);
+                        placeEntityAdapter.persistAll(beaconizedMarkers);
                         hiddenSharedPreferences.setPlacesDownloaded(true);
                         callForActiveBeacon(placeEntityAdapter);
                     } catch (Exception e) {

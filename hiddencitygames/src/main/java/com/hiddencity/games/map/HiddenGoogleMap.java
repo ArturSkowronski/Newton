@@ -34,12 +34,13 @@ public class HiddenGoogleMap {
     public HiddenGoogleMap(Context context, GoogleMap googleMap) {
         this.context = context;
         this.googleMap = googleMap;
+        this.googleMap.setMyLocationEnabled(true);
         this.googleMap.setPadding(10, 70, 10, 10);
         this.googleMap.getUiSettings().setMapToolbarEnabled(false);
         this.hiddenMarkersModel = new HiddenMarkersModel();
     }
 
-    public void addMarkers(List<PlacesEntity> placesEntities){
+    public void addMarkers(List<PlacesEntity> placesEntities) {
         drawMarkers(placesEntities);
     }
 
@@ -51,34 +52,31 @@ public class HiddenGoogleMap {
         final List<LatLng> allPositions = new ArrayList<>();
         for (PlacesEntity place : placesEntities) {
 
-            if(place.isActive()) {
-
+            if (place.isActive()) {
                 MarkerOptions markerOption = new MarkerOptions()
-                        .position(new LatLng(place.getLat(), place.getLng()))
-//                        .title("Następne zadanie")
-//                        .snippet("Poznaj przeznaczenie")
-                        .icon(hiddenMarkersModel.activeBeacon());
+                    .position(new LatLng(place.getLat(), place.getLng()))
+                    .icon(hiddenMarkersModel.activeBeacon());
                 googleMap.addMarker(markerOption);
                 positions.add(markerOption.getPosition());
 
             }
 
-            if(place.isShowed()) {
+            if (place.isShowed()) {
 
                 MarkerOptions markerOption = new MarkerOptions()
                         .position(new LatLng(place.getLat(), place.getLng()))
 //                        .title(place.getBeacon().getTitle())
 //                        .snippet(place.getBeacon().getContent())
 //                        .icon(hiddenMarkersModel.showedBeacon());
-                .icon(markerIcon(place.getBeacon().getImageUrl()));
+                        .icon(markerIcon(place.getImageUrl()));
                 googleMap.addMarker(markerOption);
                 positions.add(markerOption.getPosition());
             }
             allPositions.add(new LatLng(place.getLat(), place.getLng()));
         }
 
-        if(positions.size()>1) {
-            for(LatLng latLng : positions){
+        if (positions.size() > 1) {
+            for (LatLng latLng : positions) {
                 builder.include(latLng);
             }
             googleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
@@ -96,34 +94,37 @@ public class HiddenGoogleMap {
             });
 
         } else {
-            if(allPositions.size()>0) {
+            if (allPositions.size() > 0) {
 
-                for(LatLng latLng : allPositions){
+                for (LatLng latLng : allPositions) {
                     allBuilder.include(latLng);
                 }
-            googleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
 
-                @Override
-                public void onCameraChange(CameraPosition arg0) {
-                    LatLngBounds bounds = allBuilder.build();
-                    int boundsAdd = 0;
-                    CameraUpdate update = CameraUpdateFactory.newLatLngBounds(bounds, 10);
-                    googleMap.moveCamera(update);
+                googleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
 
-                    // Remove listener to prevent position reset on camera move.
-                    googleMap.setOnCameraChangeListener(null);
-                }
-            });
-        }}
+                    @Override
+                    public void onCameraChange(CameraPosition arg0) {
+                        LatLngBounds bounds = allBuilder.build();
+                        CameraUpdate update = CameraUpdateFactory.newLatLngBounds(bounds, 10);
+                        googleMap.moveCamera(update);
+
+                        // Remove listener to prevent position reset on camera move.
+                        googleMap.setOnCameraChangeListener(null);
+                    }
+                });
+
+            }
+        }
     }
 
 
     private BitmapDescriptor markerIcon(String image_url) {
         String backend = context.getResources().getString(R.string.backend_endpoint);
-        if(image_url!=null && !"".equals(image_url)) {
+        if (image_url != null && !"".equals(image_url)) {
             ImageView imageView = new ImageView(context);
-            Picasso.with(context).load(backend+ image_url).into(imageView);
-            if((imageView.getDrawable())!=null) return BitmapDescriptorFactory.fromBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap());
+            Picasso.with(context).load(backend + image_url).into(imageView);
+            if ((imageView.getDrawable()) != null)
+                return BitmapDescriptorFactory.fromBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap());
         }
         return hiddenMarkersModel.showedBeacon();
     }

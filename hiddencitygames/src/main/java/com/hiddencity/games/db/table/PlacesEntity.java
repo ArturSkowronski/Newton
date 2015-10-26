@@ -10,7 +10,7 @@ public class PlacesEntity extends RealmObject {
     private double lng;
     private boolean active;
     private boolean showed;
-    private BeaconEntity beacon;
+    private String imageUrl;
     private String id;
 
     public double getLat() {
@@ -45,19 +45,19 @@ public class PlacesEntity extends RealmObject {
         this.showed = showed;
     }
 
-    public BeaconEntity getBeacon() {
-        return beacon;
-    }
-
-    public void setBeacon(BeaconEntity beacon) {
-        this.beacon = beacon;
-    }
-
     public void setId(String id) {
         this.id = id;
     }
 
     public String getId() {
         return id;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

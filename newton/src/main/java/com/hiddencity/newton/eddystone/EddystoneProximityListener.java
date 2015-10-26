@@ -49,7 +49,6 @@ public class EddystoneProximityListener implements ProximityManager.ProximityLis
                 break;
 
             case DEVICE_DISCOVERED:
-                Log.i(TAG, "DEVICE_DISCOVERED");
 
                 String name = eddystoneEvent.getDeviceList().get(0).getInstanceId();
                 Log.i(TAG, "DEVICE_DISCOVERED: " + name);

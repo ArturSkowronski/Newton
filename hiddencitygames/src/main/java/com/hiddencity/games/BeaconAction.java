@@ -1,6 +1,7 @@
 package com.hiddencity.games;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.hiddencity.games.adapters.BeaconEntityAdapter;
 import com.hiddencity.games.adapters.PlaceEntityAdapter;
@@ -66,20 +67,20 @@ public class BeaconAction {
                         .setLogLevel(RestAdapter.LogLevel.FULL)
                         .build()
                         .create(NotificationShowedCall.class);
+
                 HiddenSharedPreferences hiddenSharedPreferences = new HiddenSharedPreferences(context);
+
                 notif.showed(hiddenSharedPreferences.getPlayerId(), contentId, new Callback<AnswerResponse>() {
                     @Override
                     public void success(AnswerResponse answerResponse, Response response) {
-
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-
                     }
                 });
-                HiddenNotification hiddenNotification = new HiddenNotification();
-                hiddenNotification.sendBeaconNotification(context, contentId, new HiddenSharedPreferences(context).getPlayerId(), beaconEntity.getTitle());
+//                HiddenNotification hiddenNotification = new HiddenNotification();
+//                hiddenNotification.sendBeaconNotification(context, contentId, new HiddenSharedPreferences(context).getPlayerId(), beaconEntity.getTitle());
             }
         };
     }

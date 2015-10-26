@@ -14,6 +14,7 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.hiddencity.games.R;
+import com.hiddencity.games.adapters.PlaceEntityAdapter;
 import com.hiddencity.games.audio.AudioJsInterface;
 import com.hiddencity.games.rest.ActiveBeaconResponse;
 import com.hiddencity.games.rest.calls.ActiveBeaconCall;
@@ -39,6 +40,17 @@ public class ContentWebViewActivity extends Activity {
         intent.putExtra("url", url);
         context.startActivity(intent);
     }
+
+    public void logout() {
+        new HiddenSharedPreferences(ContentWebViewActivity.this).clearAllProperties();
+        final PlaceEntityAdapter placeEntityAdapter = new PlaceEntityAdapter(ContentWebViewActivity.this);
+        placeEntityAdapter.clearDB();
+        Intent intent = new Intent(ContentWebViewActivity.this, MainMenuActivity.class);
+        ContentWebViewActivity.this.startActivity(intent);
+        Toast.makeText(ContentWebViewActivity.this, "Gra już zakończona", Toast.LENGTH_LONG).show();
+
+    }
+
 
     private void callForActiveBeacon(final String url, final String contentId) {
         ActiveBeaconCall activeBeacon;
@@ -72,7 +84,7 @@ public class ContentWebViewActivity extends Activity {
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(ContentWebViewActivity.this, "To zadanie już zostało wykonane", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ContentWebViewActivity.this, "Problem z wykonaniem zadania. Spróbuj ponownie", Toast.LENGTH_SHORT).show();
                 NavigationActivity.goThere(ContentWebViewActivity.this);
             }
         });
@@ -95,6 +107,7 @@ public class ContentWebViewActivity extends Activity {
         String backendEndpoint = getResources().getString(R.string.backend_endpoint);
 
         ButterKnife.bind(this);
+        if(!new HiddenSharedPreferences(ContentWebViewActivity.this).isPlayerLogged()) logout();
         Bundle b = getIntent().getExtras();
         String url = backendEndpoint + b.getString("url");
         String contentId = b.getString("contentId");

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.hiddencity.games.gcm.RegistrationIntentService;
@@ -44,6 +45,7 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(this, RegistrationIntentService.class);
                 startService(intent);
             } else {
+                Toast.makeText(this, "Twój telefon nie jest kompatybilny z grą. Przepraszamy.", Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "LACK OF PLAY SERVICES");
             }
 

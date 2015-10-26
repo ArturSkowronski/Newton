@@ -25,7 +25,7 @@ public class NotifMessage implements GCMProcessor {
         Log.i("GCM MSG", "Message Received " + message);
 
         if(message.equals("notif")) {
-            String contentId = data.getString("contentId");
+            String contentId = data.getString("placeId");
             String title = data.getString("title");
             HiddenNotification hiddenNotification = new HiddenNotification();
             hiddenNotification.sendBeaconNotification(context, contentId, new HiddenSharedPreferences(context).getPlayerId(), title);
